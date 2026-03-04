@@ -21,6 +21,8 @@ export class MainScreen extends Container {
   private settingsButton: FancyButton;
   private addButton: FancyButton;
   private removeButton: FancyButton;
+  private testButton: FancyButton;
+
   private bouncer: Bouncer;
   private paused = false;
 
@@ -45,6 +47,7 @@ export class MainScreen extends Container {
         duration: 100,
       },
     };
+
     this.pauseButton = new FancyButton({
       defaultView: "icon-pause.png",
       anchor: 0.5,
@@ -80,6 +83,14 @@ export class MainScreen extends Container {
     });
     this.removeButton.onPress.connect(() => this.bouncer.remove());
     this.addChild(this.removeButton);
+
+    this.testButton = new Button({
+      text: "Click Me!",
+      width: 175,
+      height: 110,
+    });
+    this.testButton.onPress.connect(() => console.log("Pressed!"));
+    this.addChild(this.testButton);
   }
 
   /** Prepare the screen just before showing */
@@ -112,16 +123,18 @@ export class MainScreen extends Container {
     const centerX = width * 0.5;
     const centerY = height * 0.5;
 
-    this.mainContainer.x = centerX;
-    this.mainContainer.y = centerY;
-    this.pauseButton.x = 30;
-    this.pauseButton.y = 30;
+    this.mainContainer.x  = centerX;
+    this.mainContainer.y  = centerY;
+    this.pauseButton.x    = 30;
+    this.pauseButton.y    = 30;
     this.settingsButton.x = width - 30;
     this.settingsButton.y = 30;
-    this.removeButton.x = width / 2 - 100;
-    this.removeButton.y = height - 75;
-    this.addButton.x = width / 2 + 100;
-    this.addButton.y = height - 75;
+    this.removeButton.x   = width / 2 - 100;
+    this.removeButton.y   = height - 75;
+    this.addButton.x      = width / 2 + 100;
+    this.addButton.y      = height - 75;
+    this.testButton.x     = width / 2 + 300;
+    this.testButton.y     = height - 75;
 
     this.bouncer.resize(width, height);
   }
@@ -135,6 +148,7 @@ export class MainScreen extends Container {
       this.settingsButton,
       this.addButton,
       this.removeButton,
+      this.testButton
     ];
 
     let finalPromise!: AnimationPlaybackControls;
