@@ -1,3 +1,4 @@
+/* Pixi default project stuff */
 import { FancyButton } from "@pixi/ui";
 import { animate } from "motion";
 import type { AnimationPlaybackControls } from "motion/react";
@@ -10,6 +11,11 @@ import { SettingsPopup } from "../../popups/SettingsPopup";
 import { Button } from "../../ui/Button";
 
 import { Bouncer } from "./Bouncer";
+
+
+/* Vexchord stuff */
+import { ChordBox } from "vexchords";
+
 
 /** The screen that holds the app */
 export class MainScreen extends Container {
@@ -25,6 +31,10 @@ export class MainScreen extends Container {
 
   private bouncer: Bouncer;
   private paused = false;
+
+  private testChordBox: ChordBox;
+
+
 
   constructor() {
     super();
