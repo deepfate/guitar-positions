@@ -17,6 +17,9 @@ import { Bouncer } from "./Bouncer";
 import { ChordBox } from "vexchords";
 
 
+
+
+
 /** The screen that holds the app */
 export class MainScreen extends Container {
   /** Assets bundles required by this screen */
@@ -32,8 +35,31 @@ export class MainScreen extends Container {
   private bouncer: Bouncer;
   private paused = false;
 
-  private testChordBox: ChordBox;
+  private testChordBox = new ChordBox('#selector', {
+    // Customizations (all optional, defaults shown)
+    width: 100, // canvas width
+    height: 120, // canvas height
+    circleRadius: 5, // circle radius (width / 20 by default)
 
+    numStrings: 6, // number of strings (e.g., 4 for bass)
+    numFrets: 5, // number of frets (e.g., 7 for stretch chords)
+    showTuning: true, // show tuning keys
+
+    defaultColor: '#666', // default color
+    bgColor: '#FFF', // background color
+    strokeColor: '#666', // stroke color (overrides defaultColor)
+    textColor: '#666', // text color (overrides defaultColor)
+    stringColor: '#666', // string color (overrides defaultColor)
+    fretColor: '#666', // fret color (overrides defaultColor)
+    labelColor: '#666', // label color (overrides defaultColor)
+
+    fretWidth: 1, // fret width
+    stringWidth: 1, // string width
+  });
+
+  testChordBox.draw({
+    
+  })
 
 
   constructor() {
@@ -104,7 +130,7 @@ export class MainScreen extends Container {
   }
 
   /** Prepare the screen just before showing */
-  public prepare() {}
+  public prepare() { }
 
   /** Update the screen */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -126,25 +152,25 @@ export class MainScreen extends Container {
   }
 
   /** Fully reset */
-  public reset() {}
+  public reset() { }
 
   /** Resize the screen, fired whenever window size changes */
   public resize(width: number, height: number) {
     const centerX = width * 0.5;
     const centerY = height * 0.5;
 
-    this.mainContainer.x  = centerX;
-    this.mainContainer.y  = centerY;
-    this.pauseButton.x    = 30;
-    this.pauseButton.y    = 30;
+    this.mainContainer.x = centerX;
+    this.mainContainer.y = centerY;
+    this.pauseButton.x = 30;
+    this.pauseButton.y = 30;
     this.settingsButton.x = width - 30;
     this.settingsButton.y = 30;
-    this.removeButton.x   = width / 2 - 100;
-    this.removeButton.y   = height - 75;
-    this.addButton.x      = width / 2 + 100;
-    this.addButton.y      = height - 75;
-    this.testButton.x     = width / 2 + 300;
-    this.testButton.y     = height - 75;
+    this.removeButton.x = width / 2 - 100;
+    this.removeButton.y = height - 75;
+    this.addButton.x = width / 2 + 100;
+    this.addButton.y = height - 75;
+    this.testButton.x = width / 2 + 300;
+    this.testButton.y = height - 75;
 
     this.bouncer.resize(width, height);
   }
@@ -176,7 +202,7 @@ export class MainScreen extends Container {
   }
 
   /** Hide screen with animations */
-  public async hide() {}
+  public async hide() { }
 
   /** Auto pause the app when window go out of focus */
   public blur() {
