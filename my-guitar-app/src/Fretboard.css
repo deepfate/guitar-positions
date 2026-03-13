@@ -52,3 +52,39 @@
     /* Keeps the dot above the string line */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+/* UI Controls Styling */
+.controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.controls select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+/* Position Box Logic: Fade out the fretboard outside the active position */
+.fret.out-of-position {
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+/* Highlight the Root Note of the key differently (e.g., Red) */
+.note-dot.root {
+    background-color: #d32f2f;
+    color: white;
+}
+
+/* Notes in the scale, but OUTSIDE the active position, become "ghost dots" */
+.note-dot.ghost-dot {
+    opacity: 0.2;
+    background-color: #ccc;
+    box-shadow: none;
+}
