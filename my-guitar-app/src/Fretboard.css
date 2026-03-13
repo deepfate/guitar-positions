@@ -1,51 +1,54 @@
 .fretboard-container {
-  display: flex;
-  flex-direction: column;
-  /* Adds a nice dark wood color for the background */
-  background-color: #3e2723; 
-  padding: 20px 0;
-  border-radius: 8px;
-  width: max-content;
+    display: flex;
+    flex-direction: column;
+    /* Adds a nice dark wood color for the background */
+    background-color: #3e2723;
+    padding: 20px 0;
+    border-radius: 8px;
+    width: max-content;
 }
 
 .string-row {
-  display: flex;
-  align-items: center;
-  /* Represents the physical string passing through the middle */
-  background-image: linear-gradient(to bottom, transparent 48%, #9e9e9e 48%, #9e9e9e 52%, transparent 52%);
+    display: flex;
+    align-items: center;
+    /* Represents the physical string passing through the middle */
+    background-image: linear-gradient(to bottom, transparent 48%, #9e9e9e 48%, #9e9e9e 52%, transparent 52%);
 }
 
 .fret {
-  width: 50px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* The fret wire */
-  border-right: 3px solid #b0bec5; 
-  position: relative;
+    width: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* The fret wire */
+    border-right: 3px solid #b0bec5;
+    position: relative;
 }
 
 /* Fret 0 (Open Strings) shouldn't look like regular wood/frets */
 .fret.nut {
-  width: 40px;
-  background-color: #212121;
-  border-right: 6px solid #eceff1; /* The physical nut */
-  background-image: none; /* Remove the string gradient behind the open note */
+    width: 40px;
+    background-color: #212121;
+    border-right: 6px solid #eceff1;
+    /* The physical nut */
+    background-image: none;
+    /* Remove the string gradient behind the open note */
 }
 
 /* The actual dot showing the note */
 .note-dot {
-  width: 28px;
-  height: 28px;
-  background-color: #fff;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: bold;
-  color: #000;
-  z-index: 2; /* Keeps the dot above the string line */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    width: 28px;
+    height: 28px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    z-index: 2;
+    /* Keeps the dot above the string line */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

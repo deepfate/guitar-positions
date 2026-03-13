@@ -17,6 +17,7 @@ function App() {
 
       {/* 2. Added: Render the Fretboard component right here! */}
       <Fretboard />
+      
 
     </>
   )
