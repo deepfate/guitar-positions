@@ -8,6 +8,19 @@ export default function Fretboard() {
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
     const fretboardData = useMemo(() => generateFretboard(), []);
 
+    // --- STATE FOR EXPLORATION MODE ---
+    const [rootNote, setRootNote] = useState('C');
+    const [scaleType, setScaleType] = useState('major');
+    const [position, setPosition] = useState(5); // Default to Position V
+
+    // --- LOGIC: CALCULATING ACTIVE NOTES ---
+    // 1. Get the scale data from TonalJS
+    const activeScale = Scale.get(`${rootNote} ${scaleType}`);
+
+    // 2. Use 'chroma' (a number 0-11 representing pitch class) to avoid C# vs Db spelling bugs
+    const scaleChromas = activeScale.notes.map(n => Note.get(n).chroma);
+    const rootChroma = Note.get(rootNote).chroma;
+
     return (
         <div className="fretboard-wrapper">
 
