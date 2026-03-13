@@ -1,4 +1,4 @@
-import { Note, Interval } from "tonal"; // Assuming standard Tonal import
+import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal import
 
 /**
  * Generates a 2D array representing the guitar fretboard.
@@ -9,14 +9,14 @@ import { Note, Interval } from "tonal"; // Assuming standard Tonal import
 export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"], fretCount = 22) {
   return tuning.map((openNote, stringIndex) => {
     const stringData = [];
-    
+
     for (let fret = 0; fret <= fretCount; fret++) {
       // Calculate the interval based on the fret number (1 fret = 1 semitone)
       const interval = Interval.fromSemitones(fret);
-      
+
       // Calculate the exact note at this fret
       const calculatedNoteName = Note.transpose(openNote, interval);
-      
+
       // Extract all the useful metadata from Tonal
       const noteData = Note.get(calculatedNoteName);
 
@@ -29,7 +29,7 @@ export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"],
         midi: noteData.midi       // Absolute pitch number (crucial for later)
       });
     }
-    
+
     return stringData;
   });
 }
