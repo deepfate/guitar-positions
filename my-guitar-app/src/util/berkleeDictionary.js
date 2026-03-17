@@ -103,7 +103,7 @@ export const berkleeDictionary = {
         string: 0, // Low E (6th string)
         notes: [
           { finger: 1, offset: 0 },
-          { finger: 3, offset: 2 },
+          { finger: 2, offset: 1 },
           { finger: 4, offset: 3 } 
         ]
       },
@@ -119,7 +119,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 1, offset: 0 },
-          { finger: 2, offset: 2 },
+          { finger: 3, offset: 2 },
           { finger: 4, offset: 3 }
         ]
       },
@@ -168,7 +168,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 1, offset: 0 },
-          { finger: 2, offset: 2 },
+          { finger: 3, offset: 2 }, // In position, an offset 2 is always played with 3rd finger
           { finger: 4, offset: 4 } // Pinky Stretch
         ]
       },
