@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { generateFretboard } from './util/Fretboard'; // Adjust path as needed
-import { Scale, Note } from '@tonaljs/tonal';
+import { berkleeDictionary } from './util/berkleeDictionary';
+//import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 
 export default function Fretboard() {
@@ -9,13 +10,84 @@ export default function Fretboard() {
     const fretboardData = useMemo(() => generateFretboard(), []);
 
     // --- STATE FOR EXPLORATION MODE ---
-    const [rootNote, setRootNote] = useState('C');
-    const [scaleType, setScaleType] = useState('major');
-    const [position, setPosition] = useState(5); // Default to Position V
+    const [position, setPosition] = useState(2); // Default to 2nd Position
+    const [fingeringType, setFingeringType] = useState(type1);
 
-    // --- LOGIC: CALCULATING ACTIVE NOTES ---
-    // 1. Get the scale data from TonalJS
-    const activeScale = Scale.get(`${rootNote} ${scaleType}`);
+    // --- LOGIC: MAP DICTIONARY TO FRETBOARD ---
+    const activeShape = berkleeDictionary.major[fingeringType];
+
+    // 1. Create fast lookup table for stencil
+    const activeNoteLookup = useMemo(() => {
+        const lookup = {};
+        
+        // Hardcode root locations for each type
+        const rootDefinitions = {
+            type1: {string: 1, offset: 1}, // A String, finger 2
+            type2: {string: 0, offset: 1}, // Low E, finger 2
+            type3: {string: 1, offset: 3}, // A String, finger 4
+            type4: {string: 0, offset: 3} // Low E String, finger 4
+        }
+        const rootDef = rootDefinitions[fingeringType];
+
+        activeShape.forEach(stringData => {
+            stringData.notes.forEach(note => {
+                // Calculate absolute fret on the guitar neck
+                const absoluteFret = position + note.offset;
+
+                // Check if this specific note is the root of the shape
+                const isRoot = stringData.string === rootDef.string && note.offset === rootDef.offset;
+
+                lookup[`${stringData.string}-${absoluteFret}`] = {
+                    finger: note.finger,
+                    isRoot: isRoot
+                };
+            });
+        });
+        return lookup;
+
+        }, [activeShape, position, fingeringType]);
+
+        // 2. Calculate the actual key being played to display to the user
+        const currentKeyName = useMemo(() => {
+            const rootDefinitions = {
+                type1: {string: 1, offset: 1}, // A String, finger 2
+                type2: {string: 0, offset: 1}, // Low E, finger 2
+                type3: {string: 1, offset: 3}, // A String, finger 4
+                type4: {string: 0, offset: 3} // Low E String, finger 4
+            };
+            const rootDef = rootDefinitions[fingeringType];
+            const rootStringData = fretboardData[rootDef.string];
+
+            if (!rootStringData) return "";
+
+            const rootNoteData = rootStringData.find(f => f.fret === position + rootDef.offset);
+            return rootNoteData ? rootNoteData.pitchClass : "";
+        }, [fretboardData, position, fingeringType]);
+
+        return (
+            <div className = "fretboard-wrapper">
+                {/* --- UI CONTROLS --- */}
+                <div className="controls">
+                    <select value = {fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
+                        <option value = "type1">Type 1 (Root on 5th String, FInger 2)</option>
+                        <option value = "type2">Type 2 (Root on 6th String, FInger 2)</option>
+                        <option value = "type3">Type 3 (Root on 5th String, FInger 4)</option>
+                        <option value = "type4">Type 4 (Root on 6th String, FInger 4)</option>
+                    </select>
+
+                    <select value={position} onChange={(e) => setPosition(Number(e.target.value))}>
+                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(p => (
+                            <option key={p} value={p}>Position {p === 1 ? 'I' : p === 2 ? 'II' : p === 3 ? 'III' : p === 4 ? 'IV' : p === 5 ? 'V' : p === 6 ? 'VI' : p === 7 ? 'VII' : p === 8 ? 'VIII' : p === 9 ? 'IX' : p === 10 ? 'X' : p === 11 ? 'XI' : p === 12 ? 'XII' }</option>
+                        ))}
+                    </select>
+
+
+                </div>
+
+            </div>
+        );
+
+
 
     // 2. Use 'chroma' (a number 0-11 representing pitch class) to avoid C# vs Db spelling bugs
     const scaleChromas = activeScale.notes.map(n => Note.get(n).chroma);
