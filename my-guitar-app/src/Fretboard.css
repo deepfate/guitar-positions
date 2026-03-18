@@ -88,3 +88,10 @@
     background-color: #ccc;
     box-shadow: none;
 }
+
+.key-display {
+    text-align: center;
+    color: '#ffca28';
+    margin-Bottom: '20px';
+    font-size: 1.5rem;
+}
