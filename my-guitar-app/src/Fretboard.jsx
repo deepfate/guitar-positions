@@ -12,6 +12,7 @@ export default function Fretboard() {
     // --- STATE FOR EXPLORATION MODE ---
     const [position, setPosition] = useState(2); // Default to 2nd Position
     const [fingeringType, setFingeringType] = useState('type1');
+    const [isKeyLocked, setIsKeyLocked] = useState(false);
 
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD ---
     const activeShape = berkleeDictionary.major[fingeringType];
@@ -69,12 +70,33 @@ export default function Fretboard() {
 
             {/* --- UI CONTROLS --- */}
             <div className="controls">
+                {/* --- KEY LOCK TOGGLE --- */}
+                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
+                    <input
+                        type="checkbox"
+                        checked={isKeyLocked}
+                        onChange={(e) => setIsKeyLocked(e.target.checked)}
+                    />
+                    Lock Key
+                </label>
+
+                {/* --- FINGERING TYPE SELECTION --- */}
                 <select value={fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
                     <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
                     <option value="type2">Type 2 (Root on 6th String, Finger 2)</option>
                     <option value="type3">Type 3 (Root on 5th String, Finger 4)</option>
                     <option value="type4">Type 4 (Root on 6th String, Finger 4)</option>
                 </select>
+
+                {/* --- POSITION SLIDER --- */}
+                <input
+                    type="range"
+                    min="1"
+                    max="12"
+                    value={position}
+                    onChange={(e) => handlePositionChange(Number(e.target.value))}
+                />
+                <span style={{ color: 'Black' }}>Pos: {position}</span>
 
                 <select value={position} onChange={(e) => setPosition(Number(e.target.value))}>
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(p => (
