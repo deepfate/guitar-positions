@@ -17,7 +17,9 @@ export default function Fretboard() {
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD ---
     const activeShape = berkleeDictionary.major[fingeringType];
 
-    // 1. Create fast lookup table for stencil
+    // --- FORWARD LOOKUP ---
+    //    Look at root definition of the type, then use that to check the fretboard at that string to get fret. 
+    // 1. Create fast lookup table for stencil.
     const activeNotesLookup = useMemo(() => {
         const lookup = {};
 
@@ -65,11 +67,54 @@ export default function Fretboard() {
         return rootNoteData ? rootNoteData.pitchClass : "";
     }, [fretboardData, position, fingeringType]);
 
+
+    // --- REVERSE LOOKUP ---
+    // --- This function will fire everytime the user moves the slider.
+    // --- 
+    // --- POSITION CHANGING / KEY LOCKING ALGORITHM ---
+    const handlePositionChange = (newPosition) => {
+        if (!isKeyLocked) {
+            // If not locked, just move the position box. Shape stays the same, keys change automatically.
+            setPosition(newPosition);
+            return;
+        }
+
+        // --- KEY LOCKING ALGORITHM ---
+        // Step 1: We need to know what key we are currently trying to lock.
+        // Hint  : You already have a variable holding the current key from our Forward Lookup!
+        const targetKey = currentKeyName; // --- UNCOMMENT THIS LINE ---
+
+        // Step 2: Define where the roots live for all four types.
+        // This was used in useMemo earlier and can be reused here.
+        const rootDefinitions = {
+            type1: { string: 1, offset: 1 },
+            type2: { string: 0, offset: 1 },
+            type3: { string: 1, offset: 3 },
+            type4: { string: 0, offset: 3 },
+        };
+
+        // Step 3: Loop through the 4 types in rootDefinitions.
+        // For each type, calculate its absolute fret (newPosition + offset).
+
+        // Step 4: Look up the note name at that exact string and fret in 'fretboardData'.
+
+        // Step 5: Check if that note matches our targetKey.
+        // If it does, we found our new shape! 
+        // Call setFingeringType(foundType) AND setPosition(newPosition).
+        // Then exit the loop/function.
+
+        // Step 6: What if the key doesn't exist in that position? 
+        // (e.g., trying to play C Major in Position XI without stretches).
+        // Decide how you want the app to handle this edge case.
+
+    };
+
     return (
         <div className="fretboard-wrapper">
 
             {/* --- UI CONTROLS --- */}
             <div className="controls">
+
                 {/* --- KEY LOCK TOGGLE --- */}
                 <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
                     <input
@@ -79,6 +124,24 @@ export default function Fretboard() {
                     />
                     Lock Key
                 </label>
+
+                {/* --- Various Display Options for User to Set --- */}
+                <div style={{ border: 'dotted' }} className="fretboardDisplayToggles">
+                    Fretboard Display Options
+                    <input
+                        type="checkbox"
+                    // checked = {isFingeringDots}
+                    // onChange={(e) => setIsFingeringDots(e.target.checked)}
+                    />
+                    Show Fingerings on Dots
+
+                    <select value="positionBoxView">
+                        <option value="positionBoxSolid">Solid</option>
+                        <option value="positionBoxSolid">Dotted</option>
+                        <option value="positionBoxSolid">Hide</option>
+                    </select>
+                    Position Box
+                </div>
 
                 {/* --- FINGERING TYPE SELECTION --- */}
                 <select value={fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
