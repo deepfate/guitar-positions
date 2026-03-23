@@ -8,6 +8,9 @@ import './Fretboard.css';
  * TODO:
  * - Add fret numbers and a toggle
  * - Add toggle for showing all notes
+ * - Add toggle for highlighting all roots, instead of just the lowest
+ * - Add toggle for enharmonic, so user can choose to be shown either sharps or flats
+ * - Add option for what is shown in the fingering dot. Either finger number, or note name, or nothing.
  * - Create side menu or something to keep buttons and options and stuff
  * - Extend position slider
  * - Extend fretboard
