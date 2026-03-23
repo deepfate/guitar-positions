@@ -25,10 +25,20 @@ export default function Fretboard() {
 
         // Hardcode root locations for each type
         const rootDefinitions = {
-            type1: { string: 1, offset: 1 }, // A String, finger 2
-            type2: { string: 0, offset: 1 }, // Low E, finger 2
-            type3: { string: 1, offset: 3 }, // A String, finger 4
-            type4: { string: 0, offset: 3 } // Low E String, finger 4
+            type1: { string: 1, offset: 1 },   //     A String, finger 2
+            type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
+            type1B: { string: 1, offset: -1 }, //     A String, finger 1 
+            type1C: { string: 2, offset: -1 }, //     D String, finger 1
+            type1D: { string: 0, offset: 2 },  // Low E String, finger 3
+
+            type2: { string: 0, offset: 1 },   // Low E string, finger 2
+            type3: { string: 1, offset: 3 },   //     A String, finger 4
+
+            type4: { string: 0, offset: 3 },   // Low E String, finger 4
+            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
+            type4B: { string: 1, offset: 0 },  //     A String, finger 1
+            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
+            type4D: { string: 1, offset: 2 },  //     A String, finger 3
         }
 
         const rootDef = rootDefinitions[fingeringType];
@@ -54,11 +64,21 @@ export default function Fretboard() {
     // 2. Calculate the actual key being played to display to the user
     const currentKeyName = useMemo(() => {
         const rootDefinitions = {
-            type1: { string: 1, offset: 1 }, // A String, finger 2
-            type2: { string: 0, offset: 1 }, // Low E, finger 2
-            type3: { string: 1, offset: 3 }, // A String, finger 4
-            type4: { string: 0, offset: 3 } // Low E String, finger 4
-        };
+            type1: { string: 1, offset: 1 },   //     A String, finger 2
+            type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
+            type1B: { string: 1, offset: -1 }, //     A String, finger 1 
+            type1C: { string: 2, offset: -1 }, //     D String, finger 1
+            type1D: { string: 0, offset: 2 },  // Low E String, finger 3
+
+            type2: { string: 0, offset: 1 },   // Low E string, finger 2
+            type3: { string: 1, offset: 3 },   //     A String, finger 4
+
+            type4: { string: 0, offset: 3 },   // Low E String, finger 4
+            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
+            type4B: { string: 1, offset: 0 },  //     A String, finger 1
+            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
+            type4D: { string: 1, offset: 2 },  //     A String, finger 3
+        }
         const rootDef = rootDefinitions[fingeringType];
         const rootStringData = fretboardData[rootDef.string];
 
@@ -85,13 +105,24 @@ export default function Fretboard() {
         // Hint  : You already have a variable holding the current key from our Forward Lookup!
         const targetKey = currentKeyName;
 
-        // Step 2: Define where the roots live for all four types.
+        // Step 2: Define where the roots live for all types.
         // This was used in useMemo earlier and can be reused here.
+        // Pretty sure this isnt needed??? Should currentKeyName have this already?
         const rootDefinitions = {
-            type1: { string: 1, offset: 1 },
-            type2: { string: 0, offset: 1 },
-            type3: { string: 1, offset: 3 },
-            type4: { string: 0, offset: 3 },
+            type1: { string: 1, offset: 1 },   // A String, finger 2
+            type1A: { string: 0, offset: -1 }, // E String, finger 1 
+            type1B: { string: 1, offset: -1 }, // A String, finger 1 
+            type1C: { string: 2, offset: -1 }, // D String, finger 1
+            type1D: { string: 0, offset: 2 },  // E String, finger 3
+
+            type2: { string: 0, offset: 1 },   // Low E, finger 2
+            type3: { string: 1, offset: 3 },   //     A String, finger 4
+
+            type4: { string: 0, offset: 3 },   // Low E String, finger 4
+            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
+            type4B: { string: 1, offset: 0 },  //     A String, finger 1
+            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
+            type4D: { string: 1, offset: 2 },  //     A String, finger 3
         }
 
         // Step 3: Loop through the 4 types in rootDefinitions, using Object.entries()
@@ -155,9 +186,17 @@ export default function Fretboard() {
                 {/* --- FINGERING TYPE SELECTION --- */}
                 <select value={fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
                     <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
+                    <option value="type1A">Type 1A (Root on 6th String, Finger 1)</option>
+                    <option value="type1B">Type 1B (Root on 5th String, Finger 1)</option>
+                    <option value="type1C">Type 1C (Root on 4th String, Finger 1)</option>
+                    <option value="type1D">Type 1D (Root on 6th String, Finger 3)</option>
                     <option value="type2">Type 2 (Root on 6th String, Finger 2)</option>
                     <option value="type3">Type 3 (Root on 5th String, Finger 4)</option>
                     <option value="type4">Type 4 (Root on 6th String, Finger 4)</option>
+                    <option value="type4A">Type 4A (Root on 4th String, Finger 1)</option>
+                    <option value="type4B">Type 4B (Root on 5th String, Finger 1)</option>
+                    <option value="type4C">Type 4C (Root on 6th String, Finger 1)</option>
+                    <option value="type4D">Type 4D (Root on 5th String, Finger 3)</option>
                 </select>
 
                 {/* --- POSITION SLIDER --- */}

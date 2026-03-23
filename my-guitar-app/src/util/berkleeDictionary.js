@@ -61,7 +61,7 @@ export const berkleeDictionary = {
       {
         string: 1, // A (5th string)
         notes: [
-          { finger: 1, offset: 1 }, // *Diff from Type 1* // Index stretch
+          { finger: 1, offset: -1 }, // *Diff from Type 1* // Index stretch
           { finger: 2, offset: 1 },
           { finger: 4, offset: 3 }
         ]
@@ -127,7 +127,7 @@ export const berkleeDictionary = {
         string: 3, // G (3rd string)
         notes: [
           { finger: 1, offset: 0 },
-          { finger: 1, offset: 1 },
+          { finger: 2, offset: 1 },
           { finger: 4, offset: 3 }
         ]
       },
@@ -399,7 +399,7 @@ export const berkleeDictionary = {
         notes: [
           { finger: 1, offset: 0 },
           { finger: 3, offset: 2 },
-          { finger: 4, offset: 3 } 
+          { finger: 4, offset: 3 }
         ]
       },
       {
@@ -414,7 +414,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 1, offset: 0 }, // Root
-          { finger: 3, offset: 2 }, 
+          { finger: 3, offset: 2 },
           { finger: 4, offset: 4 } // Pinky Stretch
         ]
       },
@@ -463,7 +463,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 1, offset: 0 },
-          { finger: 3, offset: 2 }, 
+          { finger: 3, offset: 2 },
           { finger: 4, offset: 4 } // Pinky Stretch
         ]
       },
@@ -512,7 +512,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 2, offset: 1 },
-          { finger: 3, offset: 2 }, 
+          { finger: 3, offset: 2 },
           { finger: 4, offset: 4 } // Pinky Stretch
         ]
       },
@@ -561,7 +561,7 @@ export const berkleeDictionary = {
         string: 2, // D (4th string)
         notes: [
           { finger: 2, offset: 1 },
-          { finger: 3, offset: 2 }, 
+          { finger: 3, offset: 2 },
           { finger: 4, offset: 4 } // Pinky Stretch
         ]
       },
@@ -585,7 +585,7 @@ export const berkleeDictionary = {
         notes: [
           { finger: 1, offset: 0 },
           { finger: 3, offset: 2 },
-          { finger: 4, offset: 3 } // Pinky Stretch
+          { finger: 4, offset: 4 } // Pinky Stretch
         ]
       }
     ]
