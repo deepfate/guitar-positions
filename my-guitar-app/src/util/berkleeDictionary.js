@@ -49,6 +49,202 @@ export const berkleeDictionary = {
         ]
       }
     ],
+    type1A: [ // 3 Stretches. Root: String 0 (Low E) *Ionian from this root*
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch // Root note is here
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: 1 }, // *Diff from Type 1* // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 2, offset: 1 }, // *Diff from Type 1*
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      }
+    ],
+    type1B: [ // 4 Stretches Root: String 1 (A) *Ionian from this root*
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch // Root note is here
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 1, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      }
+    ],
+    type1C: [ // 5 Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch // Root note is here
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      }
+    ],
+    type1D: [ // 5 Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 } // Root note is here
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: -1 }, // Index stretch
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      }
+    ],
     type2: [ // No Stretches
       {
         string: 0, // Low E (6th string)
@@ -63,7 +259,7 @@ export const berkleeDictionary = {
         notes: [
           { finger: 1, offset: 0 },
           { finger: 2, offset: 1 },
-          { finger: 4, offset: 3 } 
+          { finger: 4, offset: 3 }
         ]
       },
       {
@@ -104,7 +300,7 @@ export const berkleeDictionary = {
         notes: [
           { finger: 1, offset: 0 },
           { finger: 2, offset: 1 },
-          { finger: 4, offset: 3 } 
+          { finger: 4, offset: 3 }
         ]
       },
       {
@@ -193,6 +389,203 @@ export const berkleeDictionary = {
           { finger: 1, offset: 0 },
           { finger: 3, offset: 2 },
           { finger: 4, offset: 3 }
+        ]
+      }
+    ],
+    // 
+    type4A: [ // 2 Pinky Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 3 } 
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: 0 }, // Root
+          { finger: 3, offset: 2 }, 
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 3 }
+        ]
+      }
+    ],
+    type4B: [ // 4 Pinky Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: 0 }, // Root
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 }, 
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      }
+    ],
+    type4C: [ // 5 Pinky Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }, 
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      }
+    ],
+    type4D: [ // 5 Pinky Stretches
+      {
+        string: 0, // Low E (6th string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 1, // A (5th string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 2, // D (4th string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 3, offset: 2 }, 
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 3, // G (3rd string)
+        notes: [
+          { finger: 2, offset: 1 },
+          { finger: 4, offset: 3 }
+        ]
+      },
+      {
+        string: 4, // B (2nd string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 4 } // Pinky Stretch
+        ]
+      },
+      {
+        string: 5, // High E (1st string)
+        notes: [
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 },
+          { finger: 4, offset: 3 } // Pinky Stretch
         ]
       }
     ]
