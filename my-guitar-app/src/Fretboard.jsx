@@ -4,6 +4,21 @@ import { berkleeDictionary } from './util/berkleeDictionary.js';
 //import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 
+/**
+ * TODO:
+ * - Add fret numbers and a toggle
+ * - Add toggle for showing all notes
+ * - Create side menu or something to keep buttons and options and stuff
+ * - Extend position slider
+ * - Extend fretboard
+ * - 
+ * - 
+ * - 
+ * - 
+ **/
+
+
+
 export default function Fretboard() {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
