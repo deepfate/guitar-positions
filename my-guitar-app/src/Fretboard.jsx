@@ -30,6 +30,7 @@ export default function Fretboard() {
             type3: { string: 1, offset: 3 }, // A String, finger 4
             type4: { string: 0, offset: 3 } // Low E String, finger 4
         }
+
         const rootDef = rootDefinitions[fingeringType];
 
         activeShape.forEach(stringData => {
@@ -82,7 +83,7 @@ export default function Fretboard() {
         // --- KEY LOCKING ALGORITHM ---
         // Step 1: We need to know what key we are currently trying to lock.
         // Hint  : You already have a variable holding the current key from our Forward Lookup!
-        const targetKey = currentKeyName; // --- UNCOMMENT THIS LINE ---
+        const targetKey = currentKeyName;
 
         // Step 2: Define where the roots live for all four types.
         // This was used in useMemo earlier and can be reused here.
@@ -91,22 +92,30 @@ export default function Fretboard() {
             type2: { string: 0, offset: 1 },
             type3: { string: 1, offset: 3 },
             type4: { string: 0, offset: 3 },
-        };
+        }
 
-        // Step 3: Loop through the 4 types in rootDefinitions.
-        // For each type, calculate its absolute fret (newPosition + offset).
+        // Step 3: Loop through the 4 types in rootDefinitions, using Object.entries()
+        for (const [typeKey, typeData] of Object.entries(rootDefinitions)) {
+            // For each type, calculate its absolute fret (newPosition + offset).
+            const absoluteFret = newPosition + typeData.offset;
 
-        // Step 4: Look up the note name at that exact string and fret in 'fretboardData'.
+            // Safety Check: Ensures the fret exists (0 - 22) before checking it
+            if (absoluteFret >= 0 && absoluteFret < fretboardData[0].length) {
+                const fretNode = fretboardData[typeData.string][absoluteFret];
 
-        // Step 5: Check if that note matches our targetKey.
-        // If it does, we found our new shape! 
-        // Call setFingeringType(foundType) AND setPosition(newPosition).
-        // Then exit the loop/function.
+                // Compare pitchClass property
+                if (fretNode.pitchClass === targetKey) {
+                    // Update the state with the string key (type 1, type2, etc)
+                    setFingeringType(typeKey);
+                    setPosition(newPosition);
 
-        // Step 6: What if the key doesn't exist in that position? 
-        // (e.g., trying to play C Major in Position XI without stretches).
-        // Decide how you want the app to handle this edge case.
-
+                    // Exit the handlePositionChange function
+                    return;
+                }
+            }
+        }
+        // Step 6: If the loop finishes and finds no match, the code ends here.
+        // The state never updates, meaning the position box ignores the slider.
     };
 
     return (

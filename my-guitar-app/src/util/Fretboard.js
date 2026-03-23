@@ -8,29 +8,6 @@ import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal impo
  */
 export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"], fretCount = 22) {
   return tuning.map((openNote, stringIndex) => {
-
-
-    /*
-    const berkleeFingerings = {
-      major: { // Do i need major here??
-        // Type 1: Starts with 2nd finger on root, on 6th string.
-        type1: [
-          {
-
-          },
-          {
-
-          },
-          {
-
-          }
-          // ... Etc
-        ],
-
-      }
-    }
-    */
-
     const stringData = [];
 
     for (let fret = 0; fret <= fretCount; fret++) {
