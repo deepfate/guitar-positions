@@ -92,10 +92,9 @@ export default function Fretboard() {
 
         // --- KEY LOCKING ALGORITHM ---
         // Step 1: We need to know what key we are currently trying to lock.
-        // Hint  : You already have a variable holding the current key from our Forward Lookup!
         const targetKey = currentKeyName;
 
-        // Step 3: Loop through the 4 types in rootDefinitions, using Object.entries()
+        // Step 2: Loop through the types in rootDefinitions, using Object.entries()
         for (const [typeKey, typeData] of Object.entries(rootDefinitions)) {
             // For each type, calculate its absolute fret (newPosition + offset).
             const absoluteFret = newPosition + typeData.offset;
@@ -173,15 +172,20 @@ export default function Fretboard() {
                 <input
                     type="range"
                     min="1"
-                    max="12"
+                    max="20"
                     value={position}
                     onChange={(e) => handlePositionChange(Number(e.target.value))}
                 />
                 <span style={{ color: 'Black' }}>Pos: {position}</span>
 
                 <select value={position} onChange={(e) => setPosition(Number(e.target.value))}>
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(p => (
-                        <option key={p} value={p}>Position {p === 1 ? 'I' : p === 2 ? 'II' : p === 3 ? 'III' : p === 4 ? 'IV' : p === 5 ? 'V' : p === 6 ? 'VI' : p === 7 ? 'VII' : p === 8 ? 'VIII' : p === 9 ? 'IX' : p === 10 ? 'X' : p === 11 ? 'XI' : 'XII'}</option>
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(p => (
+                        <option key={p} value={p}>
+                            Position {p === 1 ? 'I' : p === 2 ? 'II' : p === 3 ? 'III' : p === 4 ? 'IV' : p === 5 ? 'V' :
+                                p === 6 ? 'VI' : p === 7 ? 'VII' : p === 8 ? 'VIII' : p === 9 ? 'IX' : p === 10 ? 'X' :
+                                    p === 11 ? 'XI' : p === 12 ? 'XII' : p === 13 ? 'XIII' : p === 14 ? 'XIV' : p === 15 ? 'XV' :
+                                        p === 16 ? 'XVI' : p === 17 ? 'XVII' : p === 18 ? 'XVIII' : p === 19 ? 'XIX' : 'XX'}
+                        </option>
                     ))}
                 </select>
             </div>
