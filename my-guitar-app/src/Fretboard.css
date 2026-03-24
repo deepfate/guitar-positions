@@ -1,3 +1,84 @@
+/* --- Main Wrapper holding both sidebar and fretboard --- */
+.dashboard-layout {
+    display: flex;
+    flex-direction: row;
+    /* Puts children side-by-side */
+    gap: 2rem;
+    align-items: flex-start;
+    /* Aligns them at the top */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001;
+    /* Must be higher than the sidebar so you can always click it */
+    padding: 8px 15px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.menu-toggle:hover {
+    background-color: #555;
+}
+
+.side-panel {
+    position: fixed;
+    /* Removes it from flow so it doesn't push the fretboard */
+    top: 0;
+    left: 0;
+    height: 100vh;
+    /* 100% of the Viewport Height */
+    width: 250px;
+    background-color: #dbb38e;
+    padding: 70px 20px 20px 20px;
+    /* Extra top padding so our button fits above the text! */
+    box-sizing: border-box;
+    /* Ensures padding doesn't widen the panel past 250px */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+    /* Keeps it above the fretboard */
+    box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+    /* A nice drop shadow to separate it from the background */
+    transition: transform 0.3s ease-in-out;
+    /* Smooth sliding animation */
+}
+
+.side-panel.closed {
+    /* Slides the panel to the left by exactly 100% of its own width */
+    transform: translateX(-100%);
+}
+
+
+.main-fretboard-area {
+    flex: 1;
+    /* Tells the fretboard to take up whatever space is left */
+}
+
+/* Mobile friendliness */
+@media (max-width: 800px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .side-panel {
+        width: 100%;
+    }
+}
+
+/* ---------------------------------------------------------- */
+
+
+/* Fretboard UI */
 .fretboard-container {
     display: flex;
     flex-direction: column;
@@ -34,6 +115,18 @@
     /* The physical nut */
     background-image: none;
     /* Remove the string gradient behind the open note */
+}
+
+/* On frets 1, 3, 5, 7, 9, 15, 17, 19 */
+.single-fret-dots {
+    width: 24px;
+    height: 24px;
+}
+
+/* On frets 12 */
+.double-fret-dots {
+    width: 20px;
+    height: 20px;
 }
 
 /* The actual dot showing the note */
