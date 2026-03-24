@@ -111,20 +111,27 @@
 .fret.nut {
     width: 40px;
     background-color: #212121;
-    border-right: 6px solid #eceff1;
+    border-right: 9px solid #eceff1;
     /* The physical nut */
     background-image: none;
     /* Remove the string gradient behind the open note */
 }
 
+.fret.octave {
+    width: 40px;
+    border-right: 6px solid #b0bec5;
+    background-image: none;
+    /* Remove the string gradient behind the open note */
+}
+
 /* On frets 1, 3, 5, 7, 9, 15, 17, 19 */
-.single-fret-dots {
+.fret.inlay.single {
     width: 24px;
     height: 24px;
 }
 
 /* On frets 12 */
-.double-fret-dots {
+.fret.inlay.double {
     width: 20px;
     height: 20px;
 }

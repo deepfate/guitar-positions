@@ -15,8 +15,8 @@ export default function ControlPanel({
 }) {
     return (
         <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
-            <h3>Controls</h3>
-            {/* 1. Move Lock Key Checkbox here. */}
+            <h2>Controls</h2>
+            {/* Key Lock Toggle */}
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
                 <input
                     type="checkbox"
@@ -26,7 +26,7 @@ export default function ControlPanel({
                 Lock Key
             </label>
 
-            {/* 2. Move fingering type dropdown here */}
+            {/* Fingering Type */}
             <select value={fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
                 <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
                 <option value="type1A">Type 1A (Root on 6th String, Finger 1)</option>
@@ -46,8 +46,7 @@ export default function ControlPanel({
                 Key: {currentKeyName} Major
             </h4>
 
-
-            {/* 3. Move position slider here */}
+            {/* Position Slider */}
             <input
                 type="range"
                 min="1"
@@ -55,7 +54,7 @@ export default function ControlPanel({
                 value={position}
                 onChange={(e) => handlePositionChange(Number(e.target.value))}
             />
-            <span style={{ color: 'Black' }}>Pos: {position}</span>
+            {/*<span style={{ color: 'Black' }}>Pos: {position}</span>*/}
 
             <select value={position} onChange={(e) => setPosition(Number(e.target.value))}>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(p => (
@@ -69,21 +68,25 @@ export default function ControlPanel({
             </select>
 
             {/* Misc settings to be implemented later */}
-            <div style={{ border: 'dotted' }} className="fretboardDisplayToggles">
-                Fretboard Display Options
-                <input
-                    type="checkbox"
-                // checked = {isFingeringDots}
-                // onChange={(e) => setIsFingeringDots(e.target.checked)}
-                />
-                Show Fingerings on Dots
-
+            <h4>Fretboard Display Options</h4>
+            <div>
+                <h4>Position Dot Options</h4>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
+                    <select value="dotType">
+                        <option value="dotTypeDigit">Show Digit</option>
+                        <option value="dotTypeNoteName">Show Note Name</option>
+                        <option value="dotTypeRoman">Show Roman Numerals</option>
+                        <option value="dotTypeNone">Hide</option>
+                    </select>
+                </label>
+            </div>
+            <div>
+                <h4>Position Box</h4>
                 <select value="positionBoxView">
                     <option value="positionBoxSolid">Solid</option>
                     <option value="positionBoxSolid">Dotted</option>
                     <option value="positionBoxSolid">Hide</option>
                 </select>
-                Position Box
             </div>
         </div>
     );

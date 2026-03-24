@@ -49,8 +49,9 @@ export default function Fretboard() {
     // 1. Create fast lookup table for stencil.
     const activeNotesLookup = useMemo(() => {
         const lookup = {};
-
         const rootDef = rootDefinitions[fingeringType];
+        // const singleInlays = [1, 3, 5, 9, 13, 17];
+        // const doubleInlays = [7, 12, 15];
 
         activeShape.forEach(stringData => {
             stringData.notes.forEach(note => {
@@ -142,14 +143,18 @@ export default function Fretboard() {
                     position={position}
                     handlePositionChange={handlePositionChange}
                 />
-
-
                 
-                {/* --- FRETBOARD --- */}
+                {/* --- FRETBOARD UI --- */}
                 <div className="fretboard-container">
+                    {/* --- Map over all strings --- */}
                     {fretboardData.slice().reverse().map((stringNotes) => (
                         <div key={`string-${stringNotes[0].stringIndex}`} className="string-row">
+                            {/* --- Map over all frets on this string --- */}
                             {stringNotes.map((fretData) => {
+                                // --- Fret Inlay Check --- //
+                                // --- Only add inlay when on A string. Nudge inlay dot later --- //
+                                
+
                                 // Check lookup table to see if this fret should have a dot
                                 const activeNote = activeNotesLookup[`${fretData.stringIndex}-${fretData.fret}`];
 
@@ -158,7 +163,7 @@ export default function Fretboard() {
                                 return (
                                     <div
                                         key={fretData.note}
-                                        className={`fret ${fretData.fret === 0 ? 'nut' : ''} ${notInPositionBox && fretData.fret !== 0 ? 'out-of-position' : ''}`}
+                                        className={`fret ${fretData.fret === 0 ? 'nut' : fretData.fret === 12 ? 'octave' : ''} ${notInPositionBox && fretData.fret !== 0 ? 'out-of-position' : ''}`}
                                     >
                                         {/* Render the finger number inside the dot */}
                                         {activeNote && (
