@@ -27,7 +27,8 @@ import ControlPanel from './ControlPanel.jsx';
  * - 
  * - 
  **/
-
+const singleInlays = [1, 3, 5, 9, 13, 17];
+const doubleInlays = [7, 12, 15];
 
 
 export default function Fretboard() {
@@ -44,14 +45,15 @@ export default function Fretboard() {
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD ---
     const activeShape = berkleeDictionary.major[fingeringType];
 
+    
+
+
     // --- FORWARD LOOKUP ---
     //    Look at root definition of the type, then use that to check the fretboard at that string to get fret. 
     // 1. Create fast lookup table for stencil.
     const activeNotesLookup = useMemo(() => {
         const lookup = {};
         const rootDef = rootDefinitions[fingeringType];
-        // const singleInlays = [1, 3, 5, 9, 13, 17];
-        // const doubleInlays = [7, 12, 15];
 
         activeShape.forEach(stringData => {
             stringData.notes.forEach(note => {
@@ -152,20 +154,30 @@ export default function Fretboard() {
                             {/* --- Map over all frets on this string --- */}
                             {stringNotes.map((fretData) => {
                                 // --- Fret Inlay Check --- //
-                                // --- Only add inlay when on A string. Nudge inlay dot later --- //
-                                
+                                // --- Single: Only add inlay when on D string. Nudge inlay dot later --- //
+                                const isSingleInlay = singleInlays.includes(fretData.fret) && fretData.stringIndex === 2;
+
+                                // --- Double: Only add inlay when on either A or B string. Nudge inlay dot later --- //
+                                const isDoubleInlay = doubleInlays.includes(fretData.fret) && (fretData.stringIndex === 1 || fretData.stringIndex === 4 );
 
                                 // Check lookup table to see if this fret should have a dot
                                 const activeNote = activeNotesLookup[`${fretData.stringIndex}-${fretData.fret}`];
 
                                 // "Home Base" for any Berklee position is exactly 4 frets wide (offset 0 to 3)
                                 const notInPositionBox = fretData.fret < position || fretData.fret > position + 3;
+
                                 return (
                                     <div
                                         key={fretData.note}
                                         className={`fret ${fretData.fret === 0 ? 'nut' : fretData.fret === 12 ? 'octave' : ''} ${notInPositionBox && fretData.fret !== 0 ? 'out-of-position' : ''}`}
                                     >
-                                        {/* Render the finger number inside the dot */}
+                                        {/* Render inlay dots */}
+                                        {(isSingleInlay || isDoubleInlay) && (
+                                            //<div className='inlay-dot'></div>
+                                            <div className={`inlay-dot ${isSingleInlay ? 'single' : 'double'}`}></div>
+                                        )}
+
+                                        {/* Render position dots */}
                                         {activeNote && (
                                             <div className={`note-dot ${activeNote.isRoot ? 'root' : ''}`}>
                                                 {activeNote.finger}
