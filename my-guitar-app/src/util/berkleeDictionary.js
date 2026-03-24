@@ -591,3 +591,21 @@ export const berkleeDictionary = {
     ]
   }
 };
+
+
+export const rootDefinitions = {
+  type1: { string: 1, offset: 1 },   //     A String, finger 2
+  type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
+  type1B: { string: 1, offset: -1 }, //     A String, finger 1 
+  type1C: { string: 2, offset: -1 }, //     D String, finger 1
+  type1D: { string: 0, offset: 2 },  // Low E String, finger 3
+
+  type2: { string: 0, offset: 1 },   // Low E string, finger 2
+  type3: { string: 1, offset: 3 },   //     A String, finger 4
+
+  type4: { string: 0, offset: 3 },   // Low E String, finger 4
+  type4A: { string: 2, offset: 0 },  //     D String, finger 1 
+  type4B: { string: 1, offset: 0 },  //     A String, finger 1
+  type4C: { string: 0, offset: 0 },  // Low E String, finger 1
+  type4D: { string: 1, offset: 2 },  //     A String, finger 3
+}

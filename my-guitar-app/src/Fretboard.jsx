@@ -1,6 +1,11 @@
+// Fretboard.jsx
+// This is for UI / Display.
+// Fretboard.js is the fretboard object itself.
+// berkleeDictionary.js is where we will keep track of position types and their root note definitions.
+
 import React, { useMemo, useState } from 'react';
 import { generateFretboard } from './util/Fretboard.js'; // Adjust path as needed
-import { berkleeDictionary } from './util/berkleeDictionary.js';
+import { berkleeDictionary, rootDefinitions } from './util/berkleeDictionary.js';
 //import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 
@@ -14,8 +19,9 @@ import './Fretboard.css';
  * - Create side menu or something to keep buttons and options and stuff
  * - Extend position slider
  * - Extend fretboard
+ * - Circle of Fifths picker
  * - 
- * - 
+ * - Note Filtering: Triads, Scales, Modes, Chords
  * - 
  * - 
  **/
@@ -41,24 +47,6 @@ export default function Fretboard() {
     const activeNotesLookup = useMemo(() => {
         const lookup = {};
 
-        // Hardcode root locations for each type
-        const rootDefinitions = {
-            type1: { string: 1, offset: 1 },   //     A String, finger 2
-            type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
-            type1B: { string: 1, offset: -1 }, //     A String, finger 1 
-            type1C: { string: 2, offset: -1 }, //     D String, finger 1
-            type1D: { string: 0, offset: 2 },  // Low E String, finger 3
-
-            type2: { string: 0, offset: 1 },   // Low E string, finger 2
-            type3: { string: 1, offset: 3 },   //     A String, finger 4
-
-            type4: { string: 0, offset: 3 },   // Low E String, finger 4
-            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
-            type4B: { string: 1, offset: 0 },  //     A String, finger 1
-            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
-            type4D: { string: 1, offset: 2 },  //     A String, finger 3
-        }
-
         const rootDef = rootDefinitions[fingeringType];
 
         activeShape.forEach(stringData => {
@@ -81,22 +69,6 @@ export default function Fretboard() {
 
     // 2. Calculate the actual key being played to display to the user
     const currentKeyName = useMemo(() => {
-        const rootDefinitions = {
-            type1: { string: 1, offset: 1 },   //     A String, finger 2
-            type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
-            type1B: { string: 1, offset: -1 }, //     A String, finger 1 
-            type1C: { string: 2, offset: -1 }, //     D String, finger 1
-            type1D: { string: 0, offset: 2 },  // Low E String, finger 3
-
-            type2: { string: 0, offset: 1 },   // Low E string, finger 2
-            type3: { string: 1, offset: 3 },   //     A String, finger 4
-
-            type4: { string: 0, offset: 3 },   // Low E String, finger 4
-            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
-            type4B: { string: 1, offset: 0 },  //     A String, finger 1
-            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
-            type4D: { string: 1, offset: 2 },  //     A String, finger 3
-        }
         const rootDef = rootDefinitions[fingeringType];
         const rootStringData = fretboardData[rootDef.string];
 
@@ -122,26 +94,6 @@ export default function Fretboard() {
         // Step 1: We need to know what key we are currently trying to lock.
         // Hint  : You already have a variable holding the current key from our Forward Lookup!
         const targetKey = currentKeyName;
-
-        // Step 2: Define where the roots live for all types.
-        // This was used in useMemo earlier and can be reused here.
-        // Pretty sure this isnt needed??? Should currentKeyName have this already?
-        const rootDefinitions = {
-            type1: { string: 1, offset: 1 },   // A String, finger 2
-            type1A: { string: 0, offset: -1 }, // E String, finger 1 
-            type1B: { string: 1, offset: -1 }, // A String, finger 1 
-            type1C: { string: 2, offset: -1 }, // D String, finger 1
-            type1D: { string: 0, offset: 2 },  // E String, finger 3
-
-            type2: { string: 0, offset: 1 },   // Low E, finger 2
-            type3: { string: 1, offset: 3 },   //     A String, finger 4
-
-            type4: { string: 0, offset: 3 },   // Low E String, finger 4
-            type4A: { string: 2, offset: 0 },  //     D String, finger 1 
-            type4B: { string: 1, offset: 0 },  //     A String, finger 1
-            type4C: { string: 0, offset: 0 },  // Low E String, finger 1
-            type4D: { string: 1, offset: 2 },  //     A String, finger 3
-        }
 
         // Step 3: Loop through the 4 types in rootDefinitions, using Object.entries()
         for (const [typeKey, typeData] of Object.entries(rootDefinitions)) {
