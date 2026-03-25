@@ -6,19 +6,12 @@ import './App.css'
 import Fretboard from './Fretboard'
 
 function App() {
-
-
-
   const [count, setCount] = useState(0)
 
   return (
     <>
       <h1>Fretboard App</h1>
-
-      {/* 2. Added: Render the Fretboard component right here! */}
       <Fretboard />
-      
-
     </>
   )
 }

@@ -8,17 +8,20 @@ export default function ControlPanel({
 
     isKeyLocked,
     setIsKeyLocked,
-    
+
+    currentKeyName,
+
     dotDisplay,
     setDotDisplay,
 
     fingeringType,
     setFingeringType,
-    
-    currentKeyName,
-    
+
     position,
-    handlePositionChange
+    handlePositionChange,
+
+    showPositionBox,
+    setShowPositionBox
 }) {
     return (
         <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
@@ -48,28 +51,42 @@ export default function ControlPanel({
                 <option value="type4C">Type 4C (Root on 6th String, Finger 1)</option>
                 <option value="type4D">Type 4D (Root on 5th String, Finger 3)</option>
             </select>
-
             <h4 className='key-display-text'>
                 Key: {currentKeyName} Major
             </h4>
+
+            {/* Position Box Toggle */}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'white', fontSize: '0.9rem' }}>
+                <input
+                    type="checkbox"
+                    checked={showPositionBox}
+                    onChange={(e) => setShowPositionBox(e.target.checked)}
+                />
+                Show Position Box
+            </label>
+
 
             {/* Position Slider */}
             <input
                 type="range"
                 min="1"
-                max="20"
+                max="24"
                 value={position}
                 onChange={(e) => handlePositionChange(Number(e.target.value))}
             />
             {/*<span style={{ color: 'Black' }}>Pos: {position}</span>*/}
 
-            <select value={position} onChange={(e) => setPosition(Number(e.target.value))}>
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].map(p => (
+            <select
+                value={position}
+                onChange={(e) => setPosition(Number(e.target.value))}
+            >
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].map(p => (
                     <option key={p} value={p}>
                         Position {p === 1 ? 'I' : p === 2 ? 'II' : p === 3 ? 'III' : p === 4 ? 'IV' : p === 5 ? 'V' :
                             p === 6 ? 'VI' : p === 7 ? 'VII' : p === 8 ? 'VIII' : p === 9 ? 'IX' : p === 10 ? 'X' :
                                 p === 11 ? 'XI' : p === 12 ? 'XII' : p === 13 ? 'XIII' : p === 14 ? 'XIV' : p === 15 ? 'XV' :
-                                    p === 16 ? 'XVI' : p === 17 ? 'XVII' : p === 18 ? 'XVIII' : p === 19 ? 'XIX' : 'XX'}
+                                    p === 16 ? 'XVI' : p === 17 ? 'XVII' : p === 18 ? 'XVIII' : p === 19 ? 'XIX' : p === 20 ? 'XX' :
+                                        p === 21 ? 'XXI' : p === 22 ? 'XXII' : p === 23 ? 'XXIII' : 'XXIV'}
                     </option>
                 ))}
             </select>

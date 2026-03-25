@@ -96,6 +96,7 @@
     background-image: linear-gradient(to bottom, transparent 48%, #9e9e9e 48%, #9e9e9e 52%, transparent 52%);
 }
 
+/* Frets */
 .fret {
     width: 50px;
     height: 40px;
@@ -105,6 +106,17 @@
     /* The fret wire */
     border-right: 3px solid #b0bec5;
     position: relative;
+}
+
+.fret.active-box {
+    background-color: rgba(255, 255, 255, 0.12);
+
+    /* Optional: Cursor hint */
+    cursor: grab;
+}
+
+.fret.active-box:active {
+    cursor: grabbing;
 }
 
 /* Fret 0 (Open Strings) shouldn't look like regular wood/frets */
@@ -124,21 +136,26 @@
     /* Remove the string gradient behind the open note */
 }
 
-.inlay-dot{
+.inlay-dot {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Perfectly centers it */
+    transform: translate(-50%, -50%);
+    /* Perfectly centers it */
     width: 15px;
     height: 15px;
-    background-color: rgba(255, 255, 255, 0.3); /* Faded white so it looks like pearl/clay */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Faded white so it looks like pearl/clay */
     border-radius: 50%;
-    z-index: 1; /* Keep it lower than your Berklee note-dots (z-index: 2) */
-    pointer-events: none; /* Prevents the dot from blocking mouse clicks later */
+    z-index: 1;
+    /* Keep it lower than your Berklee note-dots (z-index: 2) */
+    pointer-events: none;
+    /* Prevents the dot from blocking mouse clicks later */
 }
 
 .inlay-dot.single {
-    top: 0; /* Pushes the dot up to the exact boundary between the D and G strings! */
+    top: 0;
+    /* Pushes the dot up to the exact boundary between the D and G strings! */
 }
 
 /* The actual dot showing the note */
@@ -175,7 +192,7 @@
     cursor: pointer;
 }
 
-/* Position Box Logic: Fade out the fretboard outside the active position */
+/* Position Box Logic: Fade out the fretboard dots outside the active position */
 .fret.out-of-position {
     opacity: 0.3;
     transition: opacity 0.3s ease;
