@@ -25,6 +25,13 @@ import ControlPanel from './ControlPanel.jsx';
  * - 
  * - Note Filtering: Triads, Scales, Modes, Chords
  * - 
+ * - Position Box:
+ * -    * Toggle show/hide actual box around position
+ * -    * Toggle showing stretches in dots. Example, on index stretch, if this is enabled, show s1. Else, show 1.
+ * -    * Toggle left hand finger numbers or letters. Either:
+ * -    * 1, 2, 3, 4 (with or without 1s, 4s)
+ * -    *     or
+ * -    * i, m, r, p (with or without is, ps)
  * - 
  **/
 const singleInlays = [1, 3, 5, 9, 13, 17];
@@ -41,6 +48,8 @@ export default function Fretboard() {
     const [fingeringType, setFingeringType] = useState('type1');
     const [isKeyLocked, setIsKeyLocked] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [dotDisplay, setDotDisplay] = useState('dotDisplayFingers')
+
 
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD ---
     const activeShape = berkleeDictionary.major[fingeringType];
@@ -137,11 +146,18 @@ export default function Fretboard() {
 
                 <ControlPanel
                     isSidebarOpen={isSidebarOpen}
+
                     isKeyLocked={isKeyLocked}
                     setIsKeyLocked={setIsKeyLocked}
+                    
+                    dotDisplay={dotDisplay}
+                    setDotDisplay={setDotDisplay}
+                    
                     fingeringType={fingeringType}
                     setFingeringType={setFingeringType}
+                    
                     currentKeyName={currentKeyName}
+
                     position={position}
                     handlePositionChange={handlePositionChange}
                 />
@@ -169,7 +185,7 @@ export default function Fretboard() {
                                 return (
                                     <div
                                         key={fretData.note}
-                                        className={`fret ${fretData.fret === 0 ? 'nut' : fretData.fret === 12 ? 'octave' : ''} ${notInPositionBox && fretData.fret !== 0 ? 'out-of-position' : ''}`}
+                                        className={`fret ${fretData.fret === 0 ? 'nut' : fretData.fret === 11 ? 'octave' : ''} ${notInPositionBox && fretData.fret !== 0 ? 'out-of-position' : ''}`}
                                     >
                                         {/* Render inlay dots */}
                                         {(isSingleInlay || isDoubleInlay) && (
@@ -180,7 +196,10 @@ export default function Fretboard() {
                                         {/* Render position dots */}
                                         {activeNote && (
                                             <div className={`note-dot ${activeNote.isRoot ? 'root' : ''}`}>
-                                                {activeNote.finger}
+                                                {dotDisplay === 'dotDisplayFingers' && activeNote.finger}
+                                                {dotDisplay === 'dotDisplayNote' && fretData.pitchClass}
+                                                {/* Finish this later: dotDisplay === 'dotDisplayRoman' &&  */}
+                                                {/* And if dotDisplay is none, it renders nothing inside the dot div! */}
                                             </div>
                                         )}
                                     </div>

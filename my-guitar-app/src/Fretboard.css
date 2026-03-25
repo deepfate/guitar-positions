@@ -137,6 +137,10 @@
     pointer-events: none; /* Prevents the dot from blocking mouse clicks later */
 }
 
+.inlay-dot.single {
+    top: 0; /* Pushes the dot up to the exact boundary between the D and G strings! */
+}
+
 /* The actual dot showing the note */
 .note-dot {
     width: 28px;

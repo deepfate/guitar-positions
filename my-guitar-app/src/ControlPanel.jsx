@@ -5,11 +5,18 @@ import React from "react";
 // These variables/functions are referred to as Props.
 export default function ControlPanel({
     isSidebarOpen,
+
     isKeyLocked,
     setIsKeyLocked,
+    
+    dotDisplay,
+    setDotDisplay,
+
     fingeringType,
     setFingeringType,
+    
     currentKeyName,
+    
     position,
     handlePositionChange
 }) {
@@ -70,22 +77,12 @@ export default function ControlPanel({
             {/* Misc settings to be implemented later */}
             <h4>Fretboard Display Options</h4>
             <div>
-                <h4>Position Dot Options</h4>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
-                    <select value="dotType">
-                        <option value="dotTypeDigit">Show Digit</option>
-                        <option value="dotTypeNoteName">Show Note Name</option>
-                        <option value="dotTypeRoman">Show Roman Numerals</option>
-                        <option value="dotTypeNone">Hide</option>
-                    </select>
-                </label>
-            </div>
-            <div>
-                <h4>Position Box</h4>
-                <select value="positionBoxView">
-                    <option value="positionBoxSolid">Solid</option>
-                    <option value="positionBoxSolid">Dotted</option>
-                    <option value="positionBoxSolid">Hide</option>
+                <label style={{ color: 'white', fontSize: '0.9rem' }}>Dot Display</label>
+                <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value)}>
+                    <option value="dotDisplayFingers">Fingers</option>
+                    <option value="dotDisplayNote">Note Names</option>
+                    {/* <option value="dotDisplayRomam">Roman Numerals</option> */}
+                    <option value="dotDisplayNone">Empty Dots</option>
                 </select>
             </div>
         </div>
