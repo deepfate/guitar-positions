@@ -1,3 +1,5 @@
+import { FingeringKey } from './util/berkleeDictionary';
+
 interface ControlPanelProps {
     isSidebarOpen: boolean;
 
@@ -9,8 +11,8 @@ interface ControlPanelProps {
     dotDisplay: string;
     setDotDisplay: (display: string) => void;
 
-    fingeringType: string;
-    setFingeringType: (type: string) => void;
+    fingeringType: FingeringKey;
+    setFingeringType: (type: FingeringKey) => void;
 
     position: number;
     handlePositionChange: (newPosition: number) => void;
@@ -53,7 +55,10 @@ export default function ControlPanel({
             </label>
 
             {/* Fingering Type */}
-            <select value={fingeringType} onChange={(e) => setFingeringType(e.target.value)}>
+            <select
+                value={fingeringType}
+                onChange={(e) => setFingeringType(e.target.value as FingeringKey)}
+            >
                 <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
                 <option value="type1A">Type 1A (Root on 6th String, Finger 1)</option>
                 <option value="type1B">Type 1B (Root on 5th String, Finger 1)</option>

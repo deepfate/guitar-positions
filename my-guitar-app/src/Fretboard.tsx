@@ -4,12 +4,11 @@
 // berkleeDictionary.js is where we will keep track of position types and their root note definitions.
 
 import React, { useMemo, useState, useRef } from 'react';
-import { generateFretboard } from './util/Fretboard'; // Adjust path as needed
-import { berkleeDictionary, rootDefinitions } from './util/berkleeDictionary';
+import { generateFretboard } from './util/fretboard'; // Adjust path as needed
+import { berkleeDictionary, rootDefinitions, FingeringKey } from './util/berkleeDictionary';
 //import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 import ControlPanel from './ControlPanel';
-
 
 /**
  * TODO:
@@ -62,7 +61,7 @@ export default function Fretboard() {
 
     // --- STATES: Defaults --- //
     const [position, setPosition] = useState(2); // Default to 2nd Position
-    const [fingeringType, setFingeringType] = useState('type1');
+    const [fingeringType, setFingeringType] = useState<FingeringKey>('type1');
     const [isKeyLocked, setIsKeyLocked] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [dotDisplay, setDotDisplay] = useState('dotDisplayFingers');
@@ -91,6 +90,7 @@ export default function Fretboard() {
                 // Check if this specific note is the root of the shape
                 const isRoot = stringData.string === rootDef.string && note.offset === rootDef.offset;
 
+                // Create a new key in the lookup dictionary 
                 lookup[`${stringData.string}-${absoluteFret}`] = {
                     finger: note.finger,
                     isRoot: isRoot

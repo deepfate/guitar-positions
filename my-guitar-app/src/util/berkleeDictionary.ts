@@ -1,4 +1,20 @@
-export const berkleeDictionary = {
+
+// Allowed fingering types
+export type FingeringKey = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
+
+// Defines type of single note
+export interface BerkleeNote {
+  finger: number;
+  offset: number;
+}
+
+// Defines shape of a string row in dictionary
+export interface BerkleeStringData {
+  string: number;
+  notes: BerkleeNote[];
+}
+
+export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[]> } = {
   major: {
     type1: [
       {
@@ -591,7 +607,6 @@ export const berkleeDictionary = {
     ]
   }
 };
-
 
 export const rootDefinitions = {
   type1: { string: 1, offset: 1 },   //     A String, finger 2
