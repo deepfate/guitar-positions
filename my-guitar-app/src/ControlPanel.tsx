@@ -1,8 +1,24 @@
-import React from "react";
+interface ControlPanelProps {
+    isSidebarOpen: boolean;
 
-// Catch the props inside the parenthesis using destructuring!
-// Because the React state lives in Fretboard.jsx, we have to hand the state related variables and functions down.
-// These variables/functions are referred to as Props.
+    isKeyLocked: boolean;
+    setIsKeyLocked: (locked: boolean) => void; // A function that takes in a boolean and returns nothing.
+
+    currentKeyName: string;
+
+    dotDisplay: string;
+    setDotDisplay: (display: string) => void;
+
+    fingeringType: string;
+    setFingeringType: (type: string) => void;
+
+    position: number;
+    handlePositionChange: (newPosition: number) => void;
+
+    showPositionBox: boolean;
+    setShowPositionBox: (isVisible: boolean) => void;
+}
+
 export default function ControlPanel({
     isSidebarOpen,
 
@@ -22,7 +38,7 @@ export default function ControlPanel({
 
     showPositionBox,
     setShowPositionBox
-}) {
+}: ControlPanelProps) {
     return (
         <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
             <h2>Controls</h2>
@@ -78,7 +94,7 @@ export default function ControlPanel({
 
             <select
                 value={position}
-                onChange={(e) => setPosition(Number(e.target.value))}
+                onChange={(e) => handlePositionChange(Number(e.target.value))}
             >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].map(p => (
                     <option key={p} value={p}>

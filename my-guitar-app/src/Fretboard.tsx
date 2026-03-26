@@ -4,11 +4,11 @@
 // berkleeDictionary.js is where we will keep track of position types and their root note definitions.
 
 import React, { useMemo, useState, useRef } from 'react';
-import { generateFretboard } from './util/Fretboard.js'; // Adjust path as needed
-import { berkleeDictionary, rootDefinitions } from './util/berkleeDictionary.js';
+import { generateFretboard } from './util/Fretboard'; // Adjust path as needed
+import { berkleeDictionary, rootDefinitions } from './util/berkleeDictionary';
 //import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
-import ControlPanel from './ControlPanel.jsx';
+import ControlPanel from './ControlPanel';
 
 
 /**
@@ -143,16 +143,15 @@ export default function Fretboard() {
         }
     };
 
-
     // --- POSITION BOX DRAGGING --- //
-    const handlePointerDown = (e) => {
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         // Only start dragging if user clicked inside active box.
-        if (e.target.closest('.active-box')) {
+        if ((e.target as HTMLElement).closest('.active-box')) {
             setisDragging(true); // This triggers a render so our CSS cursor can change
             dragStartX.current = e.clientX;
             dragStartPos.current = position;
-
             e.target.setPointerCapture(e.pointerId); // This tells the browser to keep sending mouse events even if they drag outside of the box after the initial pointer down.
+            //(e.target as HTMLElement).setPointerCapture(e.pointerId);
         }
     };
 
