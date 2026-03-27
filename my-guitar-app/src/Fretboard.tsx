@@ -1,6 +1,6 @@
-// Fretboard.jsx
+// Fretboard.jsx - Component files get CapitalLettersInTheirNames
 // This is for UI / Display.
-// Fretboard.js is the fretboard object itself.
+// fretboard.js is the fretboard object itself.
 // berkleeDictionary.js is where we will keep track of position types and their root note definitions.
 
 import React, { useMemo, useState, useRef } from 'react';
@@ -50,9 +50,15 @@ import ControlPanel from './ControlPanel';
  * -    * Pull things out into more files for better organization/readability.
  * - 
  **/
+
+// These inlay arrays should go into fretboard.ts later, once the UI options for the user are developed.
 const singleInlays = [1, 3, 5, 9, 13, 17];
 const doubleInlays = [7, 12, 15];
 
+type ActiveNote = {
+    finger: number;
+    isRoot: boolean;
+}
 
 export default function Fretboard() {
     // Generate the fretboard data once. 
@@ -74,11 +80,6 @@ export default function Fretboard() {
 
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD --- // 
     const activeShape = berkleeDictionary.major[fingeringType];
-
-    type ActiveNote = {
-        finger: number;
-        isRoot: boolean;
-    }
 
     // --- FORWARD LOOKUP --- 
     //    Look at root definition of the type, then use that to check the fretboard at that string to get fret. 
@@ -121,7 +122,7 @@ export default function Fretboard() {
     // --- POSITION CHANGING / KEY LOCKING ALGORITHM --- //
     // --- REVERSE LOOKUP --- //
     // --- This function will fire everytime the user moves the slider. --- //
-    const handlePositionChange = (newPosition) => {
+    const handlePositionChange = (newPosition: number) => {
         if (!isKeyLocked) {
             setPosition(newPosition);
             return;
@@ -141,7 +142,7 @@ export default function Fretboard() {
             if (absoluteFret >= 0 && absoluteFret < fretboardData[0].length) { // Safety Check: Ensures the fret exists on our fretboard before checking it
                 const fretNode = fretboardData[typeData.string][absoluteFret];
                 if (fretNode.pitchClass === targetKey) {
-                    setFingeringType(typeKey);
+                    setFingeringType(typeKey as FingeringKey);
                     setPosition(newPosition);
                     return;
                 }
@@ -156,19 +157,19 @@ export default function Fretboard() {
             setisDragging(true); // This triggers a render so our CSS cursor can change
             dragStartX.current = e.clientX;
             dragStartPos.current = position;
-            e.target.setPointerCapture(e.pointerId); // This tells the browser to keep sending mouse events even if they drag outside of the box after the initial pointer down.
-            //(e.target as HTMLElement).setPointerCapture(e.pointerId);
+            e.currentTarget.setPointerCapture(e.pointerId); // This tells the browser to keep sending mouse events even if they drag outside of the box after the initial pointer down.
+            //(e.target as HTMLElement).setPointerCapture(e.pointerId); <--| This would also work, but using currentTarget is the "React" way.
         }
     };
 
-    const handlePointerUp = (e) => {
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
         if (isDragging) {
             setisDragging(false);
-            e.target.releasePointerCapture(e.pointerId);
+            e.currentTarget.releasePointerCapture(e.pointerId);
         }
     };
 
-    const handlePointerMove = (e) => {
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (!isDragging) return;
 
         // Get width of one fret
