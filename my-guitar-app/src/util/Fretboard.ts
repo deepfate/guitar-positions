@@ -6,6 +6,16 @@ import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal impo
  * @param {number} fretCount - Total number of frets to generate (usually 22 or 24)
  * @returns {Array<Array<Object>>} 2D array: fretboard[stringIndex][fret]
  */
+
+export type FretNode = {
+  stringIndex: number;
+  fret: number;
+  note: string;
+  pitchClass: string;
+  octave: number | undefined;
+  midi: number | null;
+}
+
 export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"], fretCount = 24) {
   return tuning.map((openNote, stringIndex) => {
     const stringData = [];

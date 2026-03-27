@@ -4,7 +4,7 @@
 // berkleeDictionary.js is where we will keep track of position types and their root note definitions.
 
 import React, { useMemo, useState, useRef } from 'react';
-import { generateFretboard } from './util/fretboard'; // Adjust path as needed
+import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
 import { berkleeDictionary, rootDefinitions, FingeringKey } from './util/berkleeDictionary';
 //import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
@@ -57,8 +57,7 @@ const doubleInlays = [7, 12, 15];
 export default function Fretboard() {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
-    
-    const fretboardData = useMemo(() => generateFretboard(), []);
+    const fretboardData = useMemo<FretNode[][]>(() => generateFretboard(), []);
 
     // --- STATES: Defaults --- //
     const [position, setPosition] = useState(2); // Default to 2nd Position
