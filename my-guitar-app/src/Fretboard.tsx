@@ -57,6 +57,7 @@ const doubleInlays = [7, 12, 15];
 export default function Fretboard() {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
+    
     const fretboardData = useMemo(() => generateFretboard(), []);
 
     // --- STATES: Defaults --- //
@@ -75,11 +76,17 @@ export default function Fretboard() {
     // --- LOGIC: MAP DICTIONARY TO FRETBOARD --- // 
     const activeShape = berkleeDictionary.major[fingeringType];
 
+    type ActiveNote = {
+        finger: number;
+        isRoot: boolean;
+    }
+
     // --- FORWARD LOOKUP --- 
     //    Look at root definition of the type, then use that to check the fretboard at that string to get fret. 
     // 1. Create fast lookup table for stencil.
     const activeNotesLookup = useMemo(() => {
-        const lookup = {};
+        //const lookup = {};
+        const lookup: Record<string, ActiveNote> = {};
         const rootDef = rootDefinitions[fingeringType];
 
         activeShape.forEach(stringData => {
