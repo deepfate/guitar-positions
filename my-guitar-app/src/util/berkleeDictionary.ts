@@ -1,6 +1,24 @@
 
-// Allowed fingering types
-export type FingeringKey = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
+
+/* this is a comment*/
+type RootDef = { string: number; offset: number };
+
+export const rootDefinitions: Record<FingeringKey, RootDef> = {
+  type1: { string: 1, offset: 1 },   //     A String, finger 2
+  type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
+  type1B: { string: 1, offset: -1 }, //     A String, finger 1 
+  type1C: { string: 2, offset: -1 }, //     D String, finger 1
+  type1D: { string: 0, offset: 2 },  // Low E String, finger 3
+
+  type2: { string: 0, offset: 1 },   // Low E string, finger 2
+  type3: { string: 1, offset: 3 },   //     A String, finger 4
+
+  type4: { string: 0, offset: 3 },   // Low E String, finger 4
+  type4A: { string: 2, offset: 0 },  //     D String, finger 1 
+  type4B: { string: 1, offset: 0 },  //     A String, finger 1
+  type4C: { string: 0, offset: 0 },  // Low E String, finger 1
+  type4D: { string: 1, offset: 2 },  //     A String, finger 3
+}
 
 // Defines type of single note
 export interface BerkleeNote {
@@ -14,6 +32,10 @@ export interface BerkleeStringData {
   notes: BerkleeNote[];
 }
 
+// Allowed fingering types
+export type FingeringKey = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
+
+/* this is a comment*/
 export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[]> } = {
   major: {
     type1: [
@@ -408,7 +430,6 @@ export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[
         ]
       }
     ],
-    // 
     type4A: [ // 2 Pinky Stretches
       {
         string: 0, // Low E (6th string)
@@ -608,19 +629,3 @@ export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[
   }
 };
 
-export const rootDefinitions = {
-  type1: { string: 1, offset: 1 },   //     A String, finger 2
-  type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
-  type1B: { string: 1, offset: -1 }, //     A String, finger 1 
-  type1C: { string: 2, offset: -1 }, //     D String, finger 1
-  type1D: { string: 0, offset: 2 },  // Low E String, finger 3
-
-  type2: { string: 0, offset: 1 },   // Low E string, finger 2
-  type3: { string: 1, offset: 3 },   //     A String, finger 4
-
-  type4: { string: 0, offset: 3 },   // Low E String, finger 4
-  type4A: { string: 2, offset: 0 },  //     D String, finger 1 
-  type4B: { string: 1, offset: 0 },  //     A String, finger 1
-  type4C: { string: 0, offset: 0 },  // Low E String, finger 1
-  type4D: { string: 1, offset: 2 },  //     A String, finger 3
-}

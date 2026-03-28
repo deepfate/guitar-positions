@@ -52,8 +52,11 @@ import ControlPanel from './ControlPanel';
  **/
 
 // These inlay arrays should go into fretboard.ts later, once the UI options for the user are developed.
-const singleInlays = [1, 3, 5, 9, 13, 17];
-const doubleInlays = [7, 12, 15];
+const singleInlays = [1, 3, 5, 9, 13, 17]; // as const
+const doubleInlays = [7, 12, 15]; // as const
+
+// exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
+export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none'; // 'imrp' as in, Index, Middle, Ring, Pinky
 
 type ActiveNote = {
     finger: number;
@@ -70,7 +73,7 @@ export default function Fretboard() {
     const [fingeringType, setFingeringType] = useState<FingeringKey>('type1');
     const [isKeyLocked, setIsKeyLocked] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [dotDisplay, setDotDisplay] = useState('dotDisplayFingers');
+    const [dotDisplay, setDotDisplay] = useState<DotDisplayOption>('fingers');
 
     // --- STATES: Position Box --- //
     const [showPositionBox, setShowPositionBox] = useState(true);
@@ -268,8 +271,8 @@ export default function Fretboard() {
                                         {/* Render position dots */}
                                         {activeNote && (
                                             <div className={`note-dot ${activeNote.isRoot ? 'root' : ''}`}>
-                                                {dotDisplay === 'dotDisplayFingers' && activeNote.finger}
-                                                {dotDisplay === 'dotDisplayNote' && fretData.pitchClass}
+                                                {dotDisplay === 'fingers' && activeNote.finger}
+                                                {dotDisplay === 'notes' && fretData.pitchClass}
                                                 {/* Finish this later: dotDisplay === 'dotDisplayRoman' &&  */}
                                                 {/* And if dotDisplay is none, it renders nothing inside the dot div! */}
                                             </div>

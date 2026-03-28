@@ -1,4 +1,5 @@
 import { FingeringKey } from './util/berkleeDictionary';
+import { DotDisplayOption } from './Fretboard';
 
 interface ControlPanelProps {
     isSidebarOpen: boolean;
@@ -8,8 +9,9 @@ interface ControlPanelProps {
 
     currentKeyName: string;
 
-    dotDisplay: string;
-    setDotDisplay: (display: string) => void;
+    //dotDisplay: string;
+    dotDisplay: DotDisplayOption;
+    setDotDisplay: (display: DotDisplayOption) => void;
 
     fingeringType: FingeringKey;
     setFingeringType: (type: FingeringKey) => void;
@@ -116,7 +118,7 @@ export default function ControlPanel({
             <h4>Fretboard Display Options</h4>
             <div>
                 <label style={{ color: 'white', fontSize: '0.9rem' }}>Dot Display</label>
-                <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value)}>
+                <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value as DotDisplayOption)}>
                     <option value="dotDisplayFingers">Fingers</option>
                     <option value="dotDisplayNote">Note Names</option>
                     {/* <option value="dotDisplayRomam">Roman Numerals</option> */}
