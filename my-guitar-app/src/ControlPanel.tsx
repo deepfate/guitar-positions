@@ -134,10 +134,11 @@ export default function ControlPanel({
             <div>
                 <label style={{ color: 'white', fontSize: '0.9rem' }}>Dot Display</label>
                 <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value as DotDisplayOption)}>
-                    <option value="dotDisplayFingers">Fingers</option>
-                    <option value="dotDisplayNote">Note Names</option>
-                    {/* <option value="dotDisplayRomam">Roman Numerals</option> */}
-                    <option value="dotDisplayNone">Empty Dots</option>
+                    <option value="fingers">Fingers</option>
+                    <option value="notes">Note Names</option>
+                    {/* <option value="numerals">Roman Numerals</option> */}
+                    {/* <option value="imrp">Roman Numerals</option> */}
+                    <option value="none">Empty Dots</option>
                 </select>
             </div>
         </div>

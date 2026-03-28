@@ -51,12 +51,22 @@ import ControlPanel from './ControlPanel';
  * - 
  **/
 
-// These inlay arrays should go into fretboard.ts later, once the UI options for the user are developed.
+/** Defines which frets should have a single fret dot.
+ *  The "as const" can be uncommented should you want to make these immutable.
+ * 
+ *  These inlay arrays should go into fretboard.ts later, once the UI options for the user are developed.
+ */
 const singleInlays = [1, 3, 5, 9, 13, 17]; // as const
+
+/** Defines which frets should have a double fret dot.
+ *  The "as const" can be uncommented should you want to make these immutable.
+ * 
+ *  These inlay arrays should go into fretboard.ts later, once the UI options for the user are developed.
+ */
 const doubleInlays = [7, 12, 15]; // as const
 
 /**
- * Exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
+ * @remarks Exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
  * 
  * 'imrp' as in, Index, Middle, Ring, Pinky
  */
@@ -69,7 +79,8 @@ type ActiveNote = {
 }
 
 /**
- * 
+ * The main interactive Fretboard UI.
+ * Handles rendering of strings, frets, inlay markers, active scale shapes / position.
  * @returns 
  */
 export default function Fretboard() {

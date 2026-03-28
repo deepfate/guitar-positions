@@ -271,8 +271,8 @@ export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[
       {
         string: 4, // B (2nd string)
         notes: [
-          { finger: 2, offset: 1 },
-          { finger: 4, offset: 3 }
+          { finger: 1, offset: 0 },
+          { finger: 3, offset: 2 }
         ]
       },
       {
