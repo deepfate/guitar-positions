@@ -1,8 +1,7 @@
-
-
-/* this is a comment*/
+/** */
 type RootDef = { string: number; offset: number };
 
+/** */
 export const rootDefinitions: Record<FingeringKey, RootDef> = {
   type1: { string: 1, offset: 1 },   //     A String, finger 2
   type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
@@ -20,22 +19,24 @@ export const rootDefinitions: Record<FingeringKey, RootDef> = {
   type4D: { string: 1, offset: 2 },  //     A String, finger 3
 }
 
-// Defines type of single note
+/** Defines type of single note */
 export interface BerkleeNote {
   finger: number;
   offset: number;
 }
 
-// Defines shape of a string row in dictionary
+/** Defines shape of a string row in dictionary */
 export interface BerkleeStringData {
   string: number;
   notes: BerkleeNote[];
 }
 
-// Allowed fingering types
+/** Allowed fingering types */
 export type FingeringKey = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
 
-/* this is a comment*/
+/**
+ * 
+ */
 export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[]> } = {
   major: {
     type1: [

@@ -171,6 +171,12 @@
     font-weight: bold;
     color: #000;
     z-index: 2;
+
+    /* Prevent user from highlighting the contents in the fret dots */
+    user-select: none;
+    /* This is old and can be removed. Leaving it in allows the note dot to be unselectable on old iPhones */
+    -webkit-user-select: none;
+
     /* Keeps the dot above the string line */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }

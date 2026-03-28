@@ -55,14 +55,23 @@ import ControlPanel from './ControlPanel';
 const singleInlays = [1, 3, 5, 9, 13, 17]; // as const
 const doubleInlays = [7, 12, 15]; // as const
 
-// exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
-export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none'; // 'imrp' as in, Index, Middle, Ring, Pinky
+/**
+ * Exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
+ * 
+ * 'imrp' as in, Index, Middle, Ring, Pinky
+ */
+export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none'; // 
 
+/** */
 type ActiveNote = {
     finger: number;
     isRoot: boolean;
 }
 
+/**
+ * 
+ * @returns 
+ */
 export default function Fretboard() {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
@@ -87,6 +96,9 @@ export default function Fretboard() {
     // --- FORWARD LOOKUP --- 
     //    Look at root definition of the type, then use that to check the fretboard at that string to get fret. 
     // 1. Create fast lookup table for stencil.
+    /**
+     * 
+     */
     const activeNotesLookup = useMemo(() => {
         //const lookup = {};
         const lookup: Record<string, ActiveNote> = {};
@@ -112,6 +124,9 @@ export default function Fretboard() {
     }, [activeShape, position, fingeringType]);
 
     // 2. Calculate the actual key being played to display to the user
+    /**
+     * 
+     */
     const currentKeyName = useMemo(() => {
         const rootDef = rootDefinitions[fingeringType];
         const rootStringData = fretboardData[rootDef.string];
@@ -125,6 +140,11 @@ export default function Fretboard() {
     // --- POSITION CHANGING / KEY LOCKING ALGORITHM --- //
     // --- REVERSE LOOKUP --- //
     // --- This function will fire everytime the user moves the slider. --- //
+    /**
+     * 
+     * @param newPosition 
+     * @returns 
+     */
     const handlePositionChange = (newPosition: number) => {
         if (!isKeyLocked) {
             setPosition(newPosition);
@@ -154,6 +174,10 @@ export default function Fretboard() {
     };
 
     // --- POSITION BOX DRAGGING --- //
+    /**
+     * 
+     * @param e 
+     */
     const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         // Only start dragging if user clicked inside active box.
         if ((e.target as HTMLElement).closest('.active-box')) {
@@ -165,6 +189,10 @@ export default function Fretboard() {
         }
     };
 
+    /**
+     * 
+     * @param e 
+     */
     const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
         if (isDragging) {
             setisDragging(false);
@@ -172,6 +200,11 @@ export default function Fretboard() {
         }
     };
 
+    /**
+     * 
+     * @param e 
+     * @returns 
+     */
     const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (!isDragging) return;
 

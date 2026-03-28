@@ -1,28 +1,43 @@
 import { FingeringKey } from './util/berkleeDictionary';
 import { DotDisplayOption } from './Fretboard';
 
+/** Props for the Control Panel */
 interface ControlPanelProps {
+    /** Panel Open/Close state */
     isSidebarOpen: boolean;
 
+    /** */
     isKeyLocked: boolean;
+    /** */
     setIsKeyLocked: (locked: boolean) => void; // A function that takes in a boolean and returns nothing.
 
+    /** */
     currentKeyName: string;
 
-    //dotDisplay: string;
+    /** */
     dotDisplay: DotDisplayOption;
+    /** */
     setDotDisplay: (display: DotDisplayOption) => void;
 
+    /** */
     fingeringType: FingeringKey;
+    /** */
     setFingeringType: (type: FingeringKey) => void;
 
+    /** */
     position: number;
+    /** */
     handlePositionChange: (newPosition: number) => void;
 
+    /** */
     showPositionBox: boolean;
+    /** */
     setShowPositionBox: (isVisible: boolean) => void;
 }
 
+/**
+ * 
+ */
 export default function ControlPanel({
     isSidebarOpen,
 

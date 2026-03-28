@@ -2,12 +2,8 @@
 import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal import
 
 /**
- * Generates a 2D array representing the guitar fretboard.
- * @param {string[]} tuning - Array of notes from lowest pitch to highest (e.g., Standard: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'])
- * @param {number} fretCount - Total number of frets to generate (usually 22 or 24)
- * @returns {Array<Array<Object>>} 2D array: fretboard[stringIndex][fret]
+ * 
  */
-
 export type FretNode = {
   stringIndex: number;
   fret: number;
@@ -17,6 +13,13 @@ export type FretNode = {
   midi: number | null;
 }
 
+/**
+ * Generates a 2D array representing the guitar fretboard.
+ * @param {string[]} tuning - Array of notes from lowest pitch to highest (e.g., Standard: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'])
+ * @param {number} fretCount - Total number of frets to generate (usually 22 or 24)
+ * @returns {FretNode[][]} 2D Array: fretboard[stringIndex][fret]
+ * 
+ */
 export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"], fretCount = 24) {
   return tuning.map((openNote, stringIndex) => {
     const stringData = [];
