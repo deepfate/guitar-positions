@@ -200,7 +200,7 @@
 
 /* Position Box Logic: Fade out the fretboard dots outside the active position */
 .fret.out-of-position {
-    opacity: 0.3;
+    opacity: 0.5;
     transition: opacity 0.3s ease;
 }
 
@@ -212,7 +212,7 @@
 
 /* Notes in the scale, but OUTSIDE the active position, become "ghost dots" */
 .note-dot.ghost-dot {
-    opacity: 0.2;
+    opacity: 0.3;
     background-color: #ccc;
     box-shadow: none;
 }

@@ -6,7 +6,8 @@
 import React, { useMemo, useState, useRef } from 'react';
 import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
 import { berkleeDictionary, rootDefinitions, FingeringKey } from './util/berkleeDictionary';
-//import { Scale, Note } from '@tonaljs/tonal';
+// import { Scale, Note } from '@tonaljs/tonal';
+import { Scale } from '@tonaljs/tonal';
 import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
@@ -45,6 +46,8 @@ import ControlPanel from './ControlPanel';
  * -    *   1, 2, 3, 4 (with or without 1s, 4s)
  * -    *       or
  * -    *   i, m, r, p (with or without is, ps)
+ * -    * 
+ * -    * Toggle show all dots on fretboard
  * - 
  * - Code Stuff:
  * -    * Pull things out into more files for better organization/readability.
@@ -94,6 +97,8 @@ export default function Fretboard() {
     const [isKeyLocked, setIsKeyLocked] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [dotDisplay, setDotDisplay] = useState<DotDisplayOption>('fingers');
+    const [dotShowAll, setDotShowAll] = useState(false);
+
 
     // --- STATES: Position Box --- //
     const [showPositionBox, setShowPositionBox] = useState(true);
@@ -134,9 +139,8 @@ export default function Fretboard() {
 
     }, [activeShape, position, fingeringType]);
 
-    // 2. Calculate the actual key being played to display to the user
     /**
-     * 
+     * Calculate the current key in position to display to the user.
      */
     const currentKeyName = useMemo(() => {
         const rootDef = rootDefinitions[fingeringType];
@@ -147,6 +151,16 @@ export default function Fretboard() {
         const rootNoteData = rootStringData.find(f => f.fret === position + rootDef.offset);
         return rootNoteData ? rootNoteData.pitchClass : "";
     }, [fretboardData, position, fingeringType]);
+
+    /**
+     * Get all notes in current position's key.
+     */
+    const currentScaleNotes = useMemo(() => {
+        if(!currentKeyName) return [];
+        
+        // Tonal's Scale.get("C major").notes returns ["C", "D", "E", "F", "G", "A", "B"]
+        return Scale.get(`${currentKeyName} major`).notes;
+    }, [currentKeyName]);
 
     // --- POSITION CHANGING / KEY LOCKING ALGORITHM --- //
     // --- REVERSE LOOKUP --- //
@@ -259,6 +273,9 @@ export default function Fretboard() {
                     dotDisplay={dotDisplay}
                     setDotDisplay={setDotDisplay}
 
+                    dotShowAll={dotShowAll}
+                    setDotShowAll={setDotShowAll}
+
                     fingeringType={fingeringType}
                     setFingeringType={setFingeringType}
 
@@ -291,6 +308,12 @@ export default function Fretboard() {
                                 // Check lookup table to see if this fret should have a dot
                                 const activeNote = activeNotesLookup[`${fretData.stringIndex}-${fretData.fret}`];
 
+                                // Check if current note belongs to key
+                                const isScaleNote = currentScaleNotes.includes(fretData.pitchClass);
+
+                                // Determine if current note is ghost note or not
+                                const isGhostNote = dotShowAll && isScaleNote && !activeNote;
+
                                 // "Home Base" for any Berklee position is exactly 4 frets wide (offset 0 to 3)
                                 const notInPositionBox = fretData.fret < position || fretData.fret > position + 3;
 
@@ -312,13 +335,22 @@ export default function Fretboard() {
                                             <div className={`inlay-dot ${isSingleInlay ? 'single' : 'double'}`}></div>
                                         )}
 
-                                        {/* Render position dots */}
+                                        {/* Render active position fret dots */}
                                         {activeNote && (
                                             <div className={`note-dot ${activeNote.isRoot ? 'root' : ''}`}>
                                                 {dotDisplay === 'fingers' && activeNote.finger}
                                                 {dotDisplay === 'notes' && fretData.pitchClass}
                                                 {/* Finish this later: dotDisplay === 'dotDisplayRoman' &&  */}
                                                 {/* And if dotDisplay is none, it renders nothing inside the dot div! */}
+                                            </div>
+                                        )}
+
+                                        {/* Render out of position fret dots, if user wants */}
+                                        {
+                                            isGhostNote && (
+                                            <div className="note-dot ghost-dot">
+                                                {/* Ghost dots don't have fingerings, so we only show text if they want Note Names */}
+                                                {dotDisplay === 'notes' && fretData.pitchClass}
                                             </div>
                                         )}
                                     </div>

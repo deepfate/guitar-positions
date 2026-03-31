@@ -14,10 +14,15 @@ interface ControlPanelProps {
     /** */
     currentKeyName: string;
 
-    /** */
+    /** Allow user to choose what is shown inside fret dots. */
     dotDisplay: DotDisplayOption;
     /** */
     setDotDisplay: (display: DotDisplayOption) => void;
+
+    /** Toggles display of all fret dots. */
+    dotShowAll: boolean;
+    /** */
+    setDotShowAll: (showAllFretDots: boolean) => void;
 
     /** */
     fingeringType: FingeringKey;
@@ -48,6 +53,9 @@ export default function ControlPanel({
 
     dotDisplay,
     setDotDisplay,
+
+    dotShowAll,
+    setDotShowAll,
 
     fingeringType,
     setFingeringType,
@@ -129,18 +137,32 @@ export default function ControlPanel({
                 ))}
             </select>
 
-            {/* Misc settings to be implemented later */}
-            <h4>Fretboard Display Options</h4>
+            {/* Toggle Show All Fret Dots */}
+            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
+                <input
+                    type="checkbox"
+                    checked={dotShowAll}
+                    onChange={(e) => setDotShowAll(e.target.checked)}
+                />
+                Toggle Fret Dots
+            </label>
+
+            {/* Fret Dots Display Options */}
+            <h4>Fret Dots Display Options</h4>
+
             <div>
                 <label style={{ color: 'white', fontSize: '0.9rem' }}>Dot Display</label>
                 <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value as DotDisplayOption)}>
                     <option value="fingers">Fingers</option>
                     <option value="notes">Note Names</option>
                     {/* <option value="numerals">Roman Numerals</option> */}
-                    {/* <option value="imrp">Roman Numerals</option> */}
+                    {/* <option value="imrp">imrp</option> */}
                     <option value="none">Empty Dots</option>
                 </select>
             </div>
+
+
+
         </div>
     );
 }
