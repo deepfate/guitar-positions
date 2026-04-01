@@ -11,50 +11,61 @@ import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
 /**
- * TODO:
- * - Add fret numbers and a toggle
- * - Add toggle for showing all notes
- * - Add toggle for highlighting all roots, instead of just the lowest
- * - Add toggle for enharmonic, so user can choose to be shown either sharps or flats
- * - Add option for what is shown in the fingering dot. Either finger number, or note name, or nothing.
- * - Create side menu or something to keep buttons and options and stuff
- * - Extend position slider
- * - Extend fretboard
- * - Circle of Fifths picker
- * - 
+ * --------------------------------------------------
+ * |                *** TODO ***                    |
+ * --------------------------------------------------
+ * - Fretboard:
+ * -    * --- DONE --- Extend fretboard
+ * -    * --- DONE --- Add option for what is shown in the fingering dot. Either finger number, or note name, or nothing.
+ * -    * --- DONE --- Add toggle for showing all notes
+ * -    * Toggle fret numbers, give option above or below fretboard
+ * -    * Add toggle for highlighting all roots, instead of just the lowest string's root.
+ * -    
  * - Note Filtering:
- * -    Triads, Scales, Modes, Chords
- * - 
- * - iRealPro Functionality
- * -    * Should be able to read iRealPro charts and move the position box dynamically as best as it can
- * -    * Position Lock feature would be nice
- * -    * Position Box movement preference would be nice. Let user set "Ascending/Descending" and position box changes every bar
- * -
- * - Circle of Fifth
- * -    * Let users drag a handle around Circle of Fifths. Circle updates would trigger either position updates, key updates, type updates, etc
- * -
- * - Staff and Notation
- * -    * Let users toggle a staff
- * -    * Let users import sheet music
- * -    * Let users import/export midi
- * - 
+ * -    * Triads, Scales, Modes, Chords
+ * 
  * - Position Box:
  * -    * --- DONE --- Toggle show/hide actual box around position
+ * -    * --- DONE --- Extend position slider
+ * -    * --- DONE --- Toggle show all dots on fretboard
  * -    * Toggle showing stretches in dots. Example, on index stretch, if this is enabled, show s1. Else, show 1.
  * -    * Toggle left hand finger numbers or letters. Either:
  * -    *   1, 2, 3, 4 (with or without 1s, 4s)
  * -    *       or
  * -    *   i, m, r, p (with or without is, ps)
  * -    * 
- * -    * --- DONE --- Toggle show all dots on fretboard
  * -    * Toggle drag position box up/down to change types. It'll either be [up = fifth up, down = fourth down), or the other way around.
  * -    * Toggle lock position
  * -    * 
  * -    * Mutual exclusion of toggle key lock and toggle position lock
  * - 
+ * - 
+ * - Control Panel Options
+ * -    * --- DONE --- Create side menu or something to keep buttons and options and stuff
+ * 
+ * 
  * - Code Stuff:
  * -    * Pull things out into more files for better organization/readability.
  * - 
+ * - 
+ * --------------------------------------------------
+ * NICE TO HAVEs / MISC. FEATURES
+ * - iRealPro Functionality
+ * -    * Should be able to read iRealPro charts and move the position box dynamically as best as it can
+ * -    * Position Lock feature would be nice
+ * -    * Position Box movement preference would be nice. Let user set "Ascending/Descending" and position box changes every bar
+ * -
+ * - Circle of Fifth
+ * -    * Add a Circle of Fifths/Fourths (though this may be better as it's own project. Basically Tessitura.)
+ * -    * Let users drag a handle around Circle of Fifths. Circle updates would trigger either position updates, key updates, type updates, etc
+ * -
+ * - Staff and Notation
+ * -    * Let users toggle a staff
+ * -    * Let users import sheet music
+ * -    * Let users import/export midi
+ * 
+ * 
+ * --------------------------------------------------
  **/
 
 /** Defines which frets should have a single fret dot.
