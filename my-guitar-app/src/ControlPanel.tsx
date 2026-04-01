@@ -22,7 +22,11 @@ interface ControlPanelProps {
     /** Toggles display of all fret dots. */
     dotShowAll: boolean;
     /** */
-    setDotShowAll: (showAllFretDots: boolean) => void;
+    setDotShowAll: (display: boolean) => void;
+
+    /** Toggles fret inlay dots */
+    // fretInlayState: boolean;
+    // setFretInlayState: (display: boolean) => void;
 
     /** */
     fingeringType: FingeringKey;
@@ -56,6 +60,9 @@ export default function ControlPanel({
 
     dotShowAll,
     setDotShowAll,
+
+    // fretInlayState,
+    // setFretInlayState,
 
     fingeringType,
     setFingeringType,
@@ -137,6 +144,11 @@ export default function ControlPanel({
                 ))}
             </select>
 
+
+
+            {/* Fret Dots Display Options */}
+            <h4>Fret Dots Display Options</h4>
+
             {/* Toggle Show All Fret Dots */}
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
                 <input
@@ -147,9 +159,7 @@ export default function ControlPanel({
                 Toggle Fret Dots
             </label>
 
-            {/* Fret Dots Display Options */}
-            <h4>Fret Dots Display Options</h4>
-
+            {/* Options for what is rendered inside fret dots */}
             <div>
                 <label style={{ color: 'white', fontSize: '0.9rem' }}>Dot Display</label>
                 <select value={dotDisplay} onChange={(e) => setDotDisplay(e.target.value as DotDisplayOption)}>
@@ -162,6 +172,21 @@ export default function ControlPanel({
             </div>
 
 
+            {/* Fretboard Display Options */}
+            <h4>Fretboard Display Options</h4>
+
+            {/*
+
+            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
+                <input
+                    type="checkbox"
+                    checked={fretInlayState}
+                    onChange={(e) => setFretInlayState(e.target.checked)}
+                />
+                Toggle Fret Inlay
+            </label>
+
+            */}
 
         </div>
     );

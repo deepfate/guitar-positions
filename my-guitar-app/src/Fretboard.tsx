@@ -98,6 +98,7 @@ export default function Fretboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [dotDisplay, setDotDisplay] = useState<DotDisplayOption>('fingers');
     const [dotShowAll, setDotShowAll] = useState(false);
+    const [fretInlayState, setFretInlayState] = useState(true);
 
 
     // --- STATES: Position Box --- //
@@ -276,6 +277,10 @@ export default function Fretboard() {
                     dotShowAll={dotShowAll}
                     setDotShowAll={setDotShowAll}
 
+                    
+                    // fretInlayState = {fretInlayState}
+                    // setFretInlayState = {setFretInlayState}
+
                     fingeringType={fingeringType}
                     setFingeringType={setFingeringType}
 
@@ -334,6 +339,11 @@ export default function Fretboard() {
                                             //<div className='inlay-dot'></div>
                                             <div className={`inlay-dot ${isSingleInlay ? 'single' : 'double'}`}></div>
                                         )}
+                                        
+                                        {/* Render fret inlays */}
+                                        {
+
+                                        }
 
                                         {/* Render active position fret dots */}
                                         {activeNote && (
@@ -353,6 +363,8 @@ export default function Fretboard() {
                                                 {dotDisplay === 'notes' && fretData.pitchClass}
                                             </div>
                                         )}
+
+
                                     </div>
                                 );
                             })}
