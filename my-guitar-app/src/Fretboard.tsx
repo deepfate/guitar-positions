@@ -6,8 +6,7 @@
 import React, { useMemo, useState, useRef } from 'react';
 import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
 import { berkleeDictionary, rootDefinitions, FingeringKey } from './util/berkleeDictionary';
-// import { Scale, Note } from '@tonaljs/tonal';
-import { Scale } from '@tonaljs/tonal';
+import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
@@ -40,14 +39,18 @@ import ControlPanel from './ControlPanel';
  * -    * Let users import/export midi
  * - 
  * - Position Box:
- * -    * Toggle show/hide actual box around position
+ * -    * --- DONE --- Toggle show/hide actual box around position
  * -    * Toggle showing stretches in dots. Example, on index stretch, if this is enabled, show s1. Else, show 1.
  * -    * Toggle left hand finger numbers or letters. Either:
  * -    *   1, 2, 3, 4 (with or without 1s, 4s)
  * -    *       or
  * -    *   i, m, r, p (with or without is, ps)
  * -    * 
- * -    * Toggle show all dots on fretboard
+ * -    * --- DONE --- Toggle show all dots on fretboard
+ * -    * Toggle drag position box up/down to change types. It'll either be [up = fifth up, down = fourth down), or the other way around.
+ * -    * Toggle lock position
+ * -    * 
+ * -    * Mutual exclusion of toggle key lock and toggle position lock
  * - 
  * - Code Stuff:
  * -    * Pull things out into more files for better organization/readability.
@@ -154,13 +157,26 @@ export default function Fretboard() {
     }, [fretboardData, position, fingeringType]);
 
     /**
-     * Get all notes in current position's key.
+     * Replacing this with currentScaleChrome() because currentScaleNotes breaks with enharmonics.
      */
     const currentScaleNotes = useMemo(() => {
-        if(!currentKeyName) return [];
-        
+        if (!currentKeyName) return [];
+
         // Tonal's Scale.get("C major").notes returns ["C", "D", "E", "F", "G", "A", "B"]
         return Scale.get(`${currentKeyName} major`).notes;
+    }, [currentKeyName]);
+
+    /**
+     * Get all notes in current position's key.
+     */
+    const currentScaleChroma = useMemo(() => {
+        if (!currentKeyName) return [];
+
+        // Get notes in current key.
+        const scaleNotes = Scale.get(`${currentKeyName} major`).notes;
+
+        // Convert them to their numeric chroma values. Tonals.js uses "chroma" (ints) for pitches. 0 = [C, B#], 1 = [C#, Db], etc...
+        return scaleNotes.map(noteName => Note.get(noteName).chroma);
     }, [currentKeyName]);
 
     // --- POSITION CHANGING / KEY LOCKING ALGORITHM --- //
@@ -277,7 +293,7 @@ export default function Fretboard() {
                     dotShowAll={dotShowAll}
                     setDotShowAll={setDotShowAll}
 
-                    
+
                     // fretInlayState = {fretInlayState}
                     // setFretInlayState = {setFretInlayState}
 
@@ -313,8 +329,9 @@ export default function Fretboard() {
                                 // Check lookup table to see if this fret should have a dot
                                 const activeNote = activeNotesLookup[`${fretData.stringIndex}-${fretData.fret}`];
 
-                                // Check if current note belongs to key
-                                const isScaleNote = currentScaleNotes.includes(fretData.pitchClass);
+                                // Check if current note's numeric pitch value (chroma) belongs to scale/key
+                                const fretChroma = Note.get(fretData.pitchClass).chroma;
+                                const isScaleNote = currentScaleChroma.includes(fretChroma);
 
                                 // Determine if current note is ghost note or not
                                 const isGhostNote = dotShowAll && isScaleNote && !activeNote;
@@ -339,7 +356,7 @@ export default function Fretboard() {
                                             //<div className='inlay-dot'></div>
                                             <div className={`inlay-dot ${isSingleInlay ? 'single' : 'double'}`}></div>
                                         )}
-                                        
+
                                         {/* Render fret inlays */}
                                         {
 
@@ -358,11 +375,11 @@ export default function Fretboard() {
                                         {/* Render out of position fret dots, if user wants */}
                                         {
                                             isGhostNote && (
-                                            <div className="note-dot ghost-dot">
-                                                {/* Ghost dots don't have fingerings, so we only show text if they want Note Names */}
-                                                {dotDisplay === 'notes' && fretData.pitchClass}
-                                            </div>
-                                        )}
+                                                <div className="note-dot ghost-dot">
+                                                    {/* Ghost dots don't have fingerings, so we only show text if they want Note Names */}
+                                                    {dotDisplay === 'notes' && fretData.pitchClass}
+                                                </div>
+                                            )}
 
 
                                     </div>
