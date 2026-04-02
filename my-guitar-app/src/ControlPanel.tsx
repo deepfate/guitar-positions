@@ -1,5 +1,6 @@
-import { FingeringKey } from './util/berkleeDictionary';
-import { DotDisplayOption } from './Fretboard';
+import { FingeringType } from './util/berkleeDictionary';
+import { DotDisplayOption, LockMode } from './Fretboard';
+
 
 /** Props for the Control Panel */
 interface ControlPanelProps {
@@ -7,9 +8,9 @@ interface ControlPanelProps {
     isSidebarOpen: boolean;
 
     /** */
-    isKeyLocked: boolean;
+    //isKeyLocked: boolean;
     /** */
-    setIsKeyLocked: (locked: boolean) => void; // A function that takes in a boolean and returns nothing.
+    //setIsKeyLocked: (locked: boolean) => void; // A function that takes in a boolean and returns nothing.
 
     /** */
     currentKeyName: string;
@@ -35,9 +36,10 @@ interface ControlPanelProps {
     // setFretInlayState: (display: boolean) => void;
 
     /** */
-    fingeringType: FingeringKey;
+    fingeringType: FingeringType;
     /** */
-    setFingeringType: (type: FingeringKey) => void;
+    //setFingeringType: (type: FingeringType) => void;
+    handleTypeChange: (type: FingeringType) => void
 
     /** */
     position: number;
@@ -74,10 +76,13 @@ export default function ControlPanel({
     setLockMode,
 
     fingeringType,
-    setFingeringType,
+    //setFingeringType,
+    handleTypeChange,
 
     position,
     handlePositionChange,
+
+
 
     showPositionBox,
     setShowPositionBox
@@ -85,20 +90,13 @@ export default function ControlPanel({
     return (
         <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
             <h2>Controls</h2>
-            {/* Key Lock Toggle */}
-            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
-                <input
-                    type="checkbox"
-                    checked={isKeyLocked}
-                    onChange={(e) => setIsKeyLocked(e.target.checked)}
-                />
-                Lock Key
-            </label>
 
             {/* Fingering Type */}
+            <label>Fingering Type:</label>
             <select
                 value={fingeringType}
-                onChange={(e) => setFingeringType(e.target.value as FingeringKey)}
+                // onChange={(e) => setFingeringType(e.target.value as FingeringType)}
+                onChange={(e) => handleTypeChange(e.target.value as FingeringType)}
             >
                 <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
                 <option value="type1A">Type 1A (Root on 6th String, Finger 1)</option>
@@ -136,11 +134,13 @@ export default function ControlPanel({
             </select>
 
             {/* Position Slider */}
+            <label>Position:</label>
             <input
                 type="range"
                 min="1"
                 max="24"
                 value={position}
+                disabled={lockMode === 'position'}
                 onChange={(e) => handlePositionChange(Number(e.target.value))}
             />
             {/*<span style={{ color: 'Black' }}>Pos: {position}</span>*/}

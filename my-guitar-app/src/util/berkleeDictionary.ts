@@ -2,7 +2,7 @@
 type RootDef = { string: number; offset: number };
 
 /** */
-export const rootDefinitions: Record<FingeringKey, RootDef> = {
+export const rootDefinitions: Record<FingeringType, RootDef> = {
   type1: { string: 1, offset: 1 },   //     A String, finger 2
   type1A: { string: 0, offset: -1 }, // Low E String, finger 1 
   type1B: { string: 1, offset: -1 }, //     A String, finger 1 
@@ -32,12 +32,12 @@ export interface BerkleeStringData {
 }
 
 /** Allowed fingering types */
-export type FingeringKey = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
+export type FingeringType = 'type1' | 'type1A' | 'type1B' | 'type1C' | 'type1D' | 'type2' | 'type3' | 'type4' | 'type4A' | 'type4B' | 'type4C' | 'type4D';
 
 /**
  * 
  */
-export const berkleeDictionary: { major: Record<FingeringKey, BerkleeStringData[]> } = {
+export const berkleeDictionary: { major: Record<FingeringType, BerkleeStringData[]> } = {
   major: {
     type1: [
       {

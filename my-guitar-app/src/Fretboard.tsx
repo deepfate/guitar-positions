@@ -3,13 +3,6 @@
 // fretboard.js is the fretboard object itself.
 // berkleeDictionary.js is where we will keep track of position types and their root note definitions.
 
-import React, { useMemo, useState, useRef } from 'react';
-import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
-import { berkleeDictionary, rootDefinitions, FingeringKey } from './util/berkleeDictionary';
-import { Scale, Note } from '@tonaljs/tonal';
-import './Fretboard.css';
-import ControlPanel from './ControlPanel';
-
 /**
  * |--------------------------------------------------|
  * | *** *** *** *** *** TODO *** *** *** *** *** *** |
@@ -72,6 +65,16 @@ import ControlPanel from './ControlPanel';
  * --------------------------------------------------
  **/
 
+
+
+import React, { useMemo, useState, useRef } from 'react';
+import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
+import { berkleeDictionary, rootDefinitions, FingeringType } from './util/berkleeDictionary';
+import { Scale, Note } from '@tonaljs/tonal';
+import './Fretboard.css';
+import ControlPanel from './ControlPanel';
+
+
 /** Defines which frets should have a single fret dot.
  *  The "as const" can be uncommented should you want to make these immutable.
  * 
@@ -91,7 +94,8 @@ const doubleInlays = [7, 12, 15]; // as const
  * 
  * 'imrp' as in, Index, Middle, Ring, Pinky
  */
-export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none'; // 
+export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none';
+export type LockMode = 'none' | 'key' | 'position';
 
 /** */
 type ActiveNote = {
@@ -112,9 +116,8 @@ export default function Fretboard() {
 
     // --- STATES: Defaults --- //
     const [position, setPosition] = useState(2); // Default to 2nd Position
-    const [fingeringType, setFingeringType] = useState<FingeringKey>('type1');
+    const [fingeringType, setFingeringType] = useState<FingeringType>('type1');
 
-    type LockMode = 'none' | 'key' | 'position';
     const [lockMode, setLockMode] = useState<LockMode>('none');
     // TO BE DELETED, REPLACED BY THE ABOVE.
     // const [isKeyLocked, setIsKeyLocked] = useState(false);
@@ -212,7 +215,13 @@ export default function Fretboard() {
      * @returns 
      */
     const handlePositionChange = (newPosition: number) => {
-        if (!isKeyLocked) {
+        //if (!isKeyLocked) {
+        //    setPosition(newPosition);
+        //    return;
+        //}
+        if (lockMode === 'position') return;
+
+        if (lockMode === 'none') {
             setPosition(newPosition);
             return;
         }
@@ -231,13 +240,42 @@ export default function Fretboard() {
             if (absoluteFret >= 0 && absoluteFret < fretboardData[0].length) { // Safety Check: Ensures the fret exists on our fretboard before checking it
                 const fretNode = fretboardData[typeData.string][absoluteFret];
                 if (fretNode.pitchClass === targetKey) {
-                    setFingeringType(typeKey as FingeringKey);
+                    setFingeringType(typeKey as FingeringType);
                     setPosition(newPosition);
                     return;
                 }
             }
         }
     };
+
+    const handleTypeChange = (newType: FingeringType) => {
+        // Check that position is locked. If so, then position box must be moved to maintain the key.
+        if (lockMode === 'key') {
+            const targetKey = currentKeyName;
+            const newRootDef = rootDefinitions[newType];
+
+            // Search fretboard on the new type's root string to find the target note
+            const stringNotes = fretboardData[newRootDef.string];
+            const targetNote = stringNotes.find(fret => fret.pitchClass === targetKey);
+
+            if (targetNote) {
+                // Calculate position the box needs to be in
+                let newPosition = targetNote.fret - newRootDef.offset;
+
+                // Clamp so box doesn't go flying if a wierd stretch is chosen
+                if (newPosition < 1) newPosition += 12;
+                if (newPosition > 24) newPosition -= 12;
+
+                setPosition(newPosition);
+                setFingeringType(newType);
+            }
+            return;
+        }
+        // If lockMode is 'position' or 'none'm just change the type.
+        // Position box will stay where it is and currentKeyName useMemo() will auto-update the key.
+        setFingeringType(newType);
+    }
+
 
     // --- POSITION BOX DRAGGING --- //
     /**
@@ -327,7 +365,8 @@ export default function Fretboard() {
                     // setFretInlayState = {setFretInlayState}
 
                     fingeringType={fingeringType}
-                    setFingeringType={setFingeringType}
+                    //setFingeringType={setFingeringType}
+                    handleTypeChange={handleTypeChange}
 
                     position={position}
                     handlePositionChange={handlePositionChange}
