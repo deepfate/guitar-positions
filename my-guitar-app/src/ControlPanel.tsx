@@ -27,6 +27,9 @@ interface ControlPanelProps {
     showStretches: boolean;
     setShowStretches: (display: boolean) => void;
 
+    lockMode: LockMode;
+    setLockMode: (mode: LockMode) => void;
+
     /** Toggles fret inlay dots */
     // fretInlayState: boolean;
     // setFretInlayState: (display: boolean) => void;
@@ -53,8 +56,8 @@ interface ControlPanelProps {
 export default function ControlPanel({
     isSidebarOpen,
 
-    isKeyLocked,
-    setIsKeyLocked,
+    //isKeyLocked,
+    //setIsKeyLocked,
 
     currentKeyName,
 
@@ -66,6 +69,9 @@ export default function ControlPanel({
 
     // fretInlayState,
     // setFretInlayState,
+
+    lockMode,
+    setLockMode,
 
     fingeringType,
     setFingeringType,
@@ -121,6 +127,13 @@ export default function ControlPanel({
                 Show Position Box
             </label>
 
+            {/* Choose Lock Mode (Lock Key, Lock Position, or move freely) */}
+            <label>Lock Mode:</label>
+            <select value={lockMode} onChange={(e) => setLockMode(e.target.value as LockMode)}>
+                <option value="none">Free Movement</option>
+                <option value="key">Lock Key - Change Position to another in the same key.</option>
+                <option value="position">Lock Position - Change Key, keeping position at the same fret.</option>
+            </select>
 
             {/* Position Slider */}
             <input

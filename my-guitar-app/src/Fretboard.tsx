@@ -49,6 +49,7 @@ import ControlPanel from './ControlPanel';
  * 
  * - Code Stuff:
  * -    * Pull things out into more files for better organization/readability.
+ * -    * Update all uses of Tonals.Js's Note and Scale to something that isn't deprecated.
  * - 
  * - 
  * --------------------------------------------------
@@ -112,7 +113,12 @@ export default function Fretboard() {
     // --- STATES: Defaults --- //
     const [position, setPosition] = useState(2); // Default to 2nd Position
     const [fingeringType, setFingeringType] = useState<FingeringKey>('type1');
-    const [isKeyLocked, setIsKeyLocked] = useState(false);
+
+    type LockMode = 'none' | 'key' | 'position';
+    const [lockMode, setLockMode] = useState<LockMode>('none');
+    // TO BE DELETED, REPLACED BY THE ABOVE.
+    // const [isKeyLocked, setIsKeyLocked] = useState(false);
+
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [dotDisplay, setDotDisplay] = useState<DotDisplayOption>('fingers');
     const [dotShowAll, setDotShowAll] = useState(false);
@@ -300,8 +306,8 @@ export default function Fretboard() {
                 <ControlPanel
                     isSidebarOpen={isSidebarOpen}
 
-                    isKeyLocked={isKeyLocked}
-                    setIsKeyLocked={setIsKeyLocked}
+                    //isKeyLocked={isKeyLocked}
+                    //setIsKeyLocked={setIsKeyLocked}
 
                     currentKeyName={currentKeyName}
 
@@ -313,6 +319,9 @@ export default function Fretboard() {
 
                     showStretches={showStretches}
                     setShowStretches={setShowStretches}
+
+                    lockMode={lockMode}
+                    setLockMode={setLockMode}
 
                     // fretInlayState = {fretInlayState}
                     // setFretInlayState = {setFretInlayState}
