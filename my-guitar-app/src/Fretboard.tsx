@@ -11,23 +11,26 @@ import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
 /**
- * --------------------------------------------------
- * |                *** TODO ***                    |
- * --------------------------------------------------
+ * |--------------------------------------------------|
+ * | *** *** *** *** *** TODO *** *** *** *** *** *** |
+ * |--------------------------------------------------|
  * - Fretboard:
- * -    * --- DONE --- Extend fretboard
- * -    * --- DONE --- Add option for what is shown in the fingering dot. Either finger number, or note name, or nothing.
- * -    * --- DONE --- Add toggle for showing all notes
+ * -    * ---- DONE ---- Extend fretboard
+ * -    * ---- DONE ---- Add option for what is shown in the fingering dot. Either finger number, or note name, or nothing.
+ * -    * ---- DONE ---- Add toggle for showing all notes
  * -    * Toggle fret numbers, give option above or below fretboard
  * -    * Add toggle for highlighting all roots, instead of just the lowest string's root.
+ * -    * Allow fret inlay / numbering options; on the fret itself, or outside on either the top or bottom of the neck. 
  * -    
  * - Note Filtering:
- * -    * Triads, Scales, Modes, Chords
+ * -    * Triads, Scales, Modes, Chords, etc
  * 
  * - Position Box:
- * -    * --- DONE --- Toggle show/hide actual box around position
- * -    * --- DONE --- Extend position slider
- * -    * --- DONE --- Toggle show all dots on fretboard
+ * -    * ---- DONE ---- Toggle show/hide actual box around position
+ * -    * ---- DONE ---- Extend position slider
+ * -    * ---- DONE ---- Toggle show all dots on fretboard
+ * -    * Toggle show position and/or type on top of neck.
+ * -    * Toggle out-of-active-position boxes at other postions in the current key. Top of neck should show type. 
  * -    * Toggle showing stretches in dots. Example, on index stretch, if this is enabled, show s1. Else, show 1.
  * -    * Toggle left hand finger numbers or letters. Either:
  * -    *   1, 2, 3, 4 (with or without 1s, 4s)
@@ -41,7 +44,7 @@ import ControlPanel from './ControlPanel';
  * - 
  * - 
  * - Control Panel Options
- * -    * --- DONE --- Create side menu or something to keep buttons and options and stuff
+ * -    * ---- DONE ---- Create side menu or something to keep buttons and options and stuff
  * 
  * 
  * - Code Stuff:
@@ -93,6 +96,7 @@ export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none
 type ActiveNote = {
     finger: number;
     isRoot: boolean;
+    isStretch: boolean;
 }
 
 /**
@@ -112,6 +116,7 @@ export default function Fretboard() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [dotDisplay, setDotDisplay] = useState<DotDisplayOption>('fingers');
     const [dotShowAll, setDotShowAll] = useState(false);
+    const [showStretches, setShowStretches] = useState(true);
     const [fretInlayState, setFretInlayState] = useState(true);
 
 
@@ -131,7 +136,6 @@ export default function Fretboard() {
      * 
      */
     const activeNotesLookup = useMemo(() => {
-        //const lookup = {};
         const lookup: Record<string, ActiveNote> = {};
         const rootDef = rootDefinitions[fingeringType];
 
@@ -143,15 +147,18 @@ export default function Fretboard() {
                 // Check if this specific note is the root of the shape
                 const isRoot = stringData.string === rootDef.string && note.offset === rootDef.offset;
 
+                // If note falls outside of [0 - 3], then it requires a stretch of either the index or pinky.
+                const isStretch = note.offset < 0 || note.offset > 3;
+
                 // Create a new key in the lookup dictionary 
                 lookup[`${stringData.string}-${absoluteFret}`] = {
                     finger: note.finger,
-                    isRoot: isRoot
+                    isRoot: isRoot,
+                    isStretch: isStretch
                 };
             });
         });
         return lookup;
-
     }, [activeShape, position, fingeringType]);
 
     /**
@@ -304,6 +311,8 @@ export default function Fretboard() {
                     dotShowAll={dotShowAll}
                     setDotShowAll={setDotShowAll}
 
+                    showStretches={showStretches}
+                    setShowStretches={setShowStretches}
 
                     // fretInlayState = {fretInlayState}
                     // setFretInlayState = {setFretInlayState}
@@ -319,13 +328,18 @@ export default function Fretboard() {
                 />
 
                 {/* --- FRETBOARD UI --- */}
-                <div className="fretboard-container"
+                <div
+                    // className="fretboard-container"
+                    className={`fretboard-container ${isDragging ? 'is-dragging' : ''}`}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
                     onPointerUp={handlePointerUp}
                     onPointerCancel={handlePointerUp}
+
+                    /* Kills native browser dragging and ghost images */
+                    onDragStart={(e) => e.preventDefault()}
                 >
-                    {/* --- Map over all strings --- */}
+                    {/* --- Map over all strings. For each string, render all frets. --- */}
                     {fretboardData.slice().reverse().map((stringNotes) => (
                         <div key={`string-${stringNotes[0].stringIndex}`} className="string-row">
                             {/* --- Map over all frets on this string --- */}
@@ -376,7 +390,14 @@ export default function Fretboard() {
                                         {/* Render active position fret dots */}
                                         {activeNote && (
                                             <div className={`note-dot ${activeNote.isRoot ? 'root' : ''}`}>
-                                                {dotDisplay === 'fingers' && activeNote.finger}
+                                                {/* Show Stretches to user? */}
+                                                {dotDisplay === 'fingers' && (
+                                                    showStretches && activeNote.isStretch
+                                                        ? `s${activeNote.finger}`
+                                                        : activeNote.finger
+                                                )}
+
+                                                {/* dotDisplay === 'fingers' && activeNote.finger */}
                                                 {dotDisplay === 'notes' && fretData.pitchClass}
                                                 {/* Finish this later: dotDisplay === 'dotDisplayRoman' &&  */}
                                                 {/* And if dotDisplay is none, it renders nothing inside the dot div! */}

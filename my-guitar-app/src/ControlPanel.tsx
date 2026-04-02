@@ -24,6 +24,9 @@ interface ControlPanelProps {
     /** */
     setDotShowAll: (display: boolean) => void;
 
+    showStretches: boolean;
+    setShowStretches: (display: boolean) => void;
+
     /** Toggles fret inlay dots */
     // fretInlayState: boolean;
     // setFretInlayState: (display: boolean) => void;
