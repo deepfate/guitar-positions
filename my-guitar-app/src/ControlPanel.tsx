@@ -39,7 +39,10 @@ interface ControlPanelProps {
     fingeringType: FingeringType;
     /** */
     //setFingeringType: (type: FingeringType) => void;
-    handleTypeChange: (type: FingeringType) => void
+    handleTypeChange: (type: FingeringType) => void;
+
+    newKey: string;
+    handleKeyChange: (key: string) => void;
 
     /** */
     position: number;
@@ -78,6 +81,8 @@ export default function ControlPanel({
     fingeringType,
     //setFingeringType,
     handleTypeChange,
+    newKey,
+    handleKeyChange,
 
     position,
     handlePositionChange,
@@ -124,6 +129,26 @@ export default function ControlPanel({
                 />
                 Show Position Box
             </label>
+
+            {/* Temp dropdown to test key change */}
+            <label>Temp for Key Change</label>
+            <select
+                value={ }
+            >
+                <option>C</option>
+                <option>G</option>
+                <option>D</option>
+                <option>A</option>
+                <option>E</option>
+                <option>B</option>
+                <option>F# / Gb</option>
+                <option>Db / C#</option>
+                <option>Ab / G#</option>
+                <option>Eb / D#</option>
+                <option>Bb / A#</option>
+                <option>F</option>
+
+            </select>
 
             {/* Choose Lock Mode (Lock Key, Lock Position, or move freely) */}
             <label>Lock Mode:</label>

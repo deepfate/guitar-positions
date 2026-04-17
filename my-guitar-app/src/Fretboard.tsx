@@ -215,10 +215,6 @@ export default function Fretboard() {
      * @returns 
      */
     const handlePositionChange = (newPosition: number) => {
-        //if (!isKeyLocked) {
-        //    setPosition(newPosition);
-        //    return;
-        //}
         if (lockMode === 'position') return;
 
         if (lockMode === 'none') {
@@ -274,6 +270,46 @@ export default function Fretboard() {
         // If lockMode is 'position' or 'none'm just change the type.
         // Position box will stay where it is and currentKeyName useMemo() will auto-update the key.
         setFingeringType(newType);
+    }
+
+    const handleKeyChange = (newKey: string) => {
+        // Position Locked 
+        // If position is locked, we must change the fingering type to match the new key
+        if (lockMode === 'position') {
+            for (const [typeKey, typeData] of Object.entries(rootDefinitions)) {
+                const absoluteFret = position + typeData.offset;
+                if (absoluteFret >= 0 && absoluteFret < fretboardData[0].length) {
+                    const fretNode = fretboardData[typeData.string][absoluteFret];
+                    // If this shape at our locked position produces the new key, select it.
+                    if (fretNode.pitchClass === newKey) {
+                        setFingeringType(typeKey as FingeringType);
+                        // Could also add a state here to show a warning if NO shape fits the key at this position.
+                        return;
+                    }
+                }
+            }
+            return;
+        }
+
+        // Key Locked
+        if (lockMode === 'key') return;
+
+        // Free Mode: lockMode === 'none'
+        // Changing key in free mode usually means fingering type stays the same while the position is changed.
+        const rootDef = rootDefinitions[fingeringType];
+        const stringNotes = fretboardData[rootDef.string];
+
+        // Find where the new root note lives on the current string
+        const targetNote = stringNotes.find(fret => fret.pitchClass === newKey);
+        if (targetNote) {
+            let newPosition = targetNote.fret - rootDef.offset;
+
+            // Clamp so box doesn't go flying if a wierd stretch is chosen
+            if (newPosition < 1) newPosition += 12;
+            if (newPosition > 24) newPosition -= 12;
+
+            setPosition(newPosition);
+        }
     }
 
 
@@ -367,6 +403,9 @@ export default function Fretboard() {
                     fingeringType={fingeringType}
                     //setFingeringType={setFingeringType}
                     handleTypeChange={handleTypeChange}
+
+                    newKey={newKey}
+                    handleKeyChange={handleKeyChange}
 
                     position={position}
                     handlePositionChange={handlePositionChange}
