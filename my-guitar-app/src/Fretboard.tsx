@@ -104,6 +104,9 @@ type ActiveNote = {
     isStretch: boolean;
 }
 
+// The mathematical order of the circle (Clockwise)
+const circleKeys = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
+
 /**
  * The main interactive Fretboard UI.
  * Handles rendering of strings, frets, inlay markers, active scale shapes / position.
@@ -117,6 +120,7 @@ export default function Fretboard() {
     // --- STATES: Defaults --- //
     const [position, setPosition] = useState(2); // Default to 2nd Position
     const [fingeringType, setFingeringType] = useState<FingeringType>('type1');
+
 
     const [lockMode, setLockMode] = useState<LockMode>('none');
     // TO BE DELETED, REPLACED BY THE ABOVE.
@@ -404,7 +408,7 @@ export default function Fretboard() {
                     //setFingeringType={setFingeringType}
                     handleTypeChange={handleTypeChange}
 
-                    newKey={newKey}
+                    //newKey={newKey} <-- I think this can be replaced with currentKeyName instead. 
                     handleKeyChange={handleKeyChange}
 
                     position={position}

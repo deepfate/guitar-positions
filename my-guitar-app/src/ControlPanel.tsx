@@ -41,7 +41,7 @@ interface ControlPanelProps {
     //setFingeringType: (type: FingeringType) => void;
     handleTypeChange: (type: FingeringType) => void;
 
-    newKey: string;
+    // newKey: string; <-- I think this can be replaced with currentKeyName instead. 
     handleKeyChange: (key: string) => void;
 
     /** */
@@ -81,7 +81,8 @@ export default function ControlPanel({
     fingeringType,
     //setFingeringType,
     handleTypeChange,
-    newKey,
+
+    //newKey,
     handleKeyChange,
 
     position,
@@ -133,7 +134,7 @@ export default function ControlPanel({
             {/* Temp dropdown to test key change */}
             <label>Temp for Key Change</label>
             <select
-                value={ }
+                value={currentKeyName}
             >
                 <option>C</option>
                 <option>G</option>
