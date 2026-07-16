@@ -1,5 +1,14 @@
-import { FingeringType } from './util/berkleeDictionary';
+
 import { DotDisplayOption, LockMode } from './Fretboard';
+
+import { FingeringType } from './util/berkleeDictionary';
+import { FingeringKey } from './util/berkleeDictionary';
+
+const fingeringKeyOrder: FingeringKey[] = [
+    'type1', 'type1A', 'type1B', 'type1C', 'type1D',
+    'type2', 'type3',
+    'type4', 'type4A', 'type4B', 'type4C', 'type4D'
+];
 
 
 /** Props for the Control Panel */
@@ -97,41 +106,76 @@ export default function ControlPanel({
         <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
             <h2>Controls</h2>
 
+            {/* Global Options */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '15px', color: 'black' }}>
+                <span className='key-display-text'>
+                    Key: {currentKeyName} Major
+                </span>
+                {/* Position Box Toggle */}
+                <label style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.9rem' }}>
+                    <input
+                        type="checkbox"
+                        checked={showPositionBox}
+                        onChange={(e) => setShowPositionBox(e.target.checked)}
+                    />
+                    Show Position Box
+                </label>
+
+                {/* Choose Lock Mode (Lock Key, Lock Position, or move freely) */}
+                <label>Lock Mode:</label>
+                <select value={lockMode} onChange={(e) => setLockMode(e.target.value as LockMode)}>
+                    <option value="none">Free Movement</option>
+                    <option value="key">Lock Key - Change Position to another in the same key.</option>
+                    <option value="position">Lock Position - Change Key, keeping position at the same fret.</option>
+                </select>
+            </div>
+
+
+
             {/* Fingering Type */}
-            <label>Fingering Type:</label>
-            <select
-                value={fingeringType}
-                // onChange={(e) => setFingeringType(e.target.value as FingeringType)}
-                onChange={(e) => handleTypeChange(e.target.value as FingeringType)}
-            >
-                <option value="type1">Type 1 (Root on 5th String, Finger 2)</option>
-                <option value="type1A">Type 1A (Root on 6th String, Finger 1)</option>
-                <option value="type1B">Type 1B (Root on 5th String, Finger 1)</option>
-                <option value="type1C">Type 1C (Root on 4th String, Finger 1)</option>
-                <option value="type1D">Type 1D (Root on 6th String, Finger 3)</option>
-                <option value="type2">Type 2 (Root on 6th String, Finger 2)</option>
-                <option value="type3">Type 3 (Root on 5th String, Finger 4)</option>
-                <option value="type4">Type 4 (Root on 6th String, Finger 4)</option>
-                <option value="type4A">Type 4A (Root on 4th String, Finger 1)</option>
-                <option value="type4B">Type 4B (Root on 5th String, Finger 1)</option>
-                <option value="type4C">Type 4C (Root on 6th String, Finger 1)</option>
-                <option value="type4D">Type 4D (Root on 5th String, Finger 3)</option>
-            </select>
-            <h4 className='key-display-text'>
-                Key: {currentKeyName} Major
-            </h4>
-
-            {/* Position Box Toggle */}
-            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'white', fontSize: '0.9rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '15px' }}>
+                {/* Dynamic Text Label showing current fingering type */}
+                <label style={{ color: 'black', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                    Fingering Type:
+                </label>
+                <span style={{ color: 'black', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                    {
+                        fingeringType === 'type1' ? 'Type 1 (Root on 5th, Fret 2)' :
+                            fingeringType === 'type1A' ? 'Type 1A (Root on 6th, Fret 1)' :
+                                fingeringType === 'type1B' ? 'Type 1B (Root on 5th, Fret 1)' :
+                                    fingeringType === 'type1C' ? 'Type 1C (Root on 4th, Fret 1)' :
+                                        fingeringType === 'type1D' ? 'Type 1D (Root on 6th, Fret 3)' :
+                                            fingeringType === 'type2' ? 'Type 2 (Root on 6th, Fret 2)' :
+                                                fingeringType === 'type3' ? 'Type 3 (Root on 5th, Fret 4)' :
+                                                    fingeringType === 'type4' ? 'Type 4 (Root on 6th, Fret 4)' :
+                                                        fingeringType === 'type4A' ? 'Type 4A (Root on 4th, Fret 1)' :
+                                                            fingeringType === 'type4B' ? 'Type 4B (Root on 5th, Fret 1)' :
+                                                                fingeringType === 'type4C' ? 'Type 4C (Root on 6th, Fret 1)' :
+                                                                    'Type 4D (Root on 5th, Fret 3)'
+                    }
+                </span>
                 <input
-                    type="checkbox"
-                    checked={showPositionBox}
-                    onChange={(e) => setShowPositionBox(e.target.checked)}
+                    type="range"
+                    min="1"
+                    max="12"
+                    value={fingeringKeyOrder.indexOf(fingeringType) + 1} // Find the number matching our current type string
+                    disabled={lockMode === 'key'}
+                    onChange={(e) => {
+                        const index = Number(e.target.value) - 1;
+                        const selectedType = fingeringKeyOrder[index];
+                        handleTypeChange(selectedType);
+                    }}
                 />
-                Show Position Box
-            </label>
+            </div>
 
-            {/* Temp dropdown to test key change */}
+
+
+
+
+
+
+            {/* Temp dropdown to test key change 
+            
             <label>Temp for Key Change</label>
             <select
                 value={currentKeyName}
@@ -150,41 +194,36 @@ export default function ControlPanel({
                 <option>F</option>
 
             </select>
+            
+            
+            */}
 
-            {/* Choose Lock Mode (Lock Key, Lock Position, or move freely) */}
-            <label>Lock Mode:</label>
-            <select value={lockMode} onChange={(e) => setLockMode(e.target.value as LockMode)}>
-                <option value="none">Free Movement</option>
-                <option value="key">Lock Key - Change Position to another in the same key.</option>
-                <option value="position">Lock Position - Change Key, keeping position at the same fret.</option>
-            </select>
+
+
 
             {/* Position Slider */}
-            <label>Position:</label>
-            <input
-                type="range"
-                min="1"
-                max="24"
-                value={position}
-                disabled={lockMode === 'position'}
-                onChange={(e) => handlePositionChange(Number(e.target.value))}
-            />
-            {/*<span style={{ color: 'Black' }}>Pos: {position}</span>*/}
-
-            <select
-                value={position}
-                onChange={(e) => handlePositionChange(Number(e.target.value))}
-            >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24].map(p => (
-                    <option key={p} value={p}>
-                        Position {p === 1 ? 'I' : p === 2 ? 'II' : p === 3 ? 'III' : p === 4 ? 'IV' : p === 5 ? 'V' :
-                            p === 6 ? 'VI' : p === 7 ? 'VII' : p === 8 ? 'VIII' : p === 9 ? 'IX' : p === 10 ? 'X' :
-                                p === 11 ? 'XI' : p === 12 ? 'XII' : p === 13 ? 'XIII' : p === 14 ? 'XIV' : p === 15 ? 'XV' :
-                                    p === 16 ? 'XVI' : p === 17 ? 'XVII' : p === 18 ? 'XVIII' : p === 19 ? 'XIX' : p === 20 ? 'XX' :
-                                        p === 21 ? 'XXI' : p === 22 ? 'XXII' : p === 23 ? 'XXIII' : 'XXIV'}
-                    </option>
-                ))}
-            </select>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '15px' }}>
+                <label style={{ color: 'black', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                    Position:
+                </label>
+                <span style={{ color: 'black', fontSize: '0.9rem', fontWeight: 'bold' }}>
+                    {
+                        position === 1 ? 'I | 1' : position === 2 ? 'II | 2' : position === 3 ? 'III | 3' : position === 4 ? 'IV | 4' : position === 5 ? 'V | 5' :
+                            position === 6 ? 'VI | 6' : position === 7 ? 'VII | 7' : position === 8 ? 'VIII | 8' : position === 9 ? 'IX | 9' : position === 10 ? 'X | 10' :
+                                position === 11 ? 'XI | 11' : position === 12 ? 'XII | 12' : position === 13 ? 'XIII | 13' : position === 14 ? 'XIV | 14' : position === 15 ? 'XV | 15' :
+                                    position === 16 ? 'XVI | 16' : position === 17 ? 'XVII | 17' : position === 18 ? 'XVIII | 18' : position === 19 ? 'XIX | 19' : position === 20 ? 'XX | 20' :
+                                        position === 21 ? 'XXI | 21' : position === 22 ? 'XXII | 22' : position === 23 ? 'XXIII | 23' : 'XXIV | 24'
+                    }
+                </span>
+                <input
+                    type="range"
+                    min="1"
+                    max="24"
+                    value={position}
+                    disabled={lockMode === 'position'}
+                    onChange={(e) => handlePositionChange(Number(e.target.value))}
+                />
+            </div>
 
 
 
