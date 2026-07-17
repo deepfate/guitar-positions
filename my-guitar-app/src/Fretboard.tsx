@@ -276,7 +276,10 @@ export default function Fretboard() {
         setFingeringType(newType);
     }
 
-    const handleKeyChange = (newKey: string) => {
+    const handleKeyChange = (newTargetKey: string) => {
+        // Get numeric pitch value of the incoming key
+        const targetChroma = Note.get(newTargetKey).chroma
+
         // Position Locked 
         // If position is locked, we must change the fingering type to match the new key
         if (lockMode === 'position') {
@@ -285,7 +288,9 @@ export default function Fretboard() {
                 if (absoluteFret >= 0 && absoluteFret < fretboardData[0].length) {
                     const fretNode = fretboardData[typeData.string][absoluteFret];
                     // If this shape at our locked position produces the new key, select it.
-                    if (fretNode.pitchClass === newKey) {
+                    const fretChroma = Note.get(fretNode.pitchClass).chroma;
+                    //if (fretNode.pitchClass === newKey) {
+                    if (fretChroma === targetChroma) {
                         setFingeringType(typeKey as FingeringType);
                         // Could also add a state here to show a warning if NO shape fits the key at this position.
                         return;
@@ -303,16 +308,21 @@ export default function Fretboard() {
         const rootDef = rootDefinitions[fingeringType];
         const stringNotes = fretboardData[rootDef.string];
 
+        const targetNode = stringNotes.find(fret =>
+            Note.get(fret.pitchClass).chroma === targetChroma
+        );
+
         // Find where the new root note lives on the current string
-        const targetNote = stringNotes.find(fret => fret.pitchClass === newKey);
-        if (targetNote) {
-            let newPosition = targetNote.fret - rootDef.offset;
+        //const targetNote = stringNotes.find(fret => fret.pitchClass === newKey);
+
+        if (targetNode) {
+            let calculatedPosition = targetNode.fret - rootDef.offset;
 
             // Clamp so box doesn't go flying if a wierd stretch is chosen
-            if (newPosition < 1) newPosition += 12;
-            if (newPosition > 24) newPosition -= 12;
+            if (calculatedPosition < 1) calculatedPosition += 12;
+            if (calculatedPosition > 24) calculatedPosition -= 12;
 
-            setPosition(newPosition);
+            setPosition(calculatedPosition);
         }
     }
 
