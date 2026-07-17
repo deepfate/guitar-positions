@@ -1,5 +1,6 @@
 
 import { DotDisplayOption, LockMode } from './Fretboard';
+import CircleOfFifths from './util/CircleOfFifths';
 
 import { FingeringType } from './util/berkleeDictionary';
 import { FingeringKey } from './util/berkleeDictionary';
@@ -253,9 +254,14 @@ export default function ControlPanel({
             </div>
 
 
-            {/* Fretboard Display Options */}
-            <h4>Fretboard Display Options</h4>
+            <CircleOfFifths
+                currentKeyName={currentKeyName}
+                onKeyChange={handleKeyChange}
+            />
 
+            {/* Fretboard Display Options
+                <h4>Fretboard Display Options</h4>
+            */}
             {/*
 
             <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
