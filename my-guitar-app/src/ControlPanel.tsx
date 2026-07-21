@@ -1,6 +1,6 @@
 
 import { DotDisplayOption, LockMode } from './Fretboard';
-import CircleOfFifths from './util/CircleOfFifths';
+//import CircleOfFifths from './util/CircleOfFifths';
 
 import { FingeringType } from './util/berkleeDictionary';
 import { FingeringKey } from './util/berkleeDictionary';
@@ -252,29 +252,6 @@ export default function ControlPanel({
                     <option value="none">Empty Dots</option>
                 </select>
             </div>
-
-
-            <CircleOfFifths
-                currentKeyName={currentKeyName}
-                onKeyChange={handleKeyChange}
-            />
-
-            {/* Fretboard Display Options
-                <h4>Fretboard Display Options</h4>
-            */}
-            {/*
-
-            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
-                <input
-                    type="checkbox"
-                    checked={fretInlayState}
-                    onChange={(e) => setFretInlayState(e.target.checked)}
-                />
-                Toggle Fret Inlay
-            </label>
-
-            */}
-
         </div>
     );
 }
