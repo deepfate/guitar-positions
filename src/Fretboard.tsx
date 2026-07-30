@@ -68,7 +68,7 @@
 
 
 import React, { useMemo, useState, useRef } from 'react';
-import { generateFretboard, FretNode } from './util/fretboard'; // Adjust path as needed
+import { generateFretboard, FretNode } from './util/Fretboard'; // Adjust path as needed
 import { berkleeDictionary, rootDefinitions, FingeringType } from './util/berkleeDictionary';
 import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
