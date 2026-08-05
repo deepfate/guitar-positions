@@ -74,6 +74,36 @@ import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
+// Defining props interface
+import { MusicKey, FingeringType, LockMode } from './types/music';
+
+// Define the exact shape of the props comings from Apps.tsx
+interface FretboardProps {
+    currentKey: MusicKey;
+    fingeringType: FingeringType;
+    lockMode: LockMode;
+    position: number;
+}
+
+
+// Apply the interface to the component's parameters
+export default function Fretboard ({
+    currentKey,
+    fingeringType,
+    lockMode,
+    position
+}: FretboardProps) {
+    return (
+    <div className="fretboard-container">
+        <h2>Fretboard (Key: {currentKey})</h2>
+
+        {/* Fretboard rendering logic goes here */}
+    
+    </div>
+    );
+}
+
+
 
 /** Defines which frets should have a single fret dot.
  *  The "as const" can be uncommented should you want to make these immutable.
@@ -276,7 +306,8 @@ export default function Fretboard() {
         setFingeringType(newType);
     }
 
-    const handleKeyChange = (newTargetKey: string) => {
+    //const handleKeyChange = (newTargetKey: string) => {
+    const handleKeyChange = (newTargetKey: MusicKey) => {
         // Get numeric pitch value of the incoming key
         const targetChroma = Note.get(newTargetKey).chroma
 

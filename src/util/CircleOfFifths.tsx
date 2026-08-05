@@ -1,10 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { MusicKey } from '../types/music';
 import { Note } from '@tonaljs/tonal';
 
-
+/*
 interface CircleOfFifthsProps {
     currentKeyName: string;
     onKeyChange: (newKey: string) => void;
+}
+*/
+
+interface CircleOfFifthsProps {
+    currentKeyName: MusicKey;
+    onKeyChange: (newKey: MusicKey) => void;
 }
 
 // Map of Circle of Fifths with both their display names and absolute Chromas (0-11)
@@ -27,7 +34,12 @@ const circleKeys = [
 
 
 
-const circleKeys = [
+interface CircleKey {
+    name: MusicKey;
+    chroma: number;
+}
+
+const circleKeys: CircleKey[] = [
     { name: 'C', chroma: 0 },
     { name: 'G', chroma: 7 },
     { name: 'D', chroma: 2 },

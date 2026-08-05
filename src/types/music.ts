@@ -1,10 +1,16 @@
+
 // This file contains the shared type directory that will define all fundamental types for music theory.
+
+// Imports
+import { BerkleeFingeringType } from "../util/berkleeDictionary";
 
 // Core Music Theory & Chroma Matching
 export interface NoteItem {
 	name: string;
 	chroma: number; // 0 - 11 (C = 0, C#/Db = 1, ...)
 }
+
+export type MusicKey = 'C' | 'G' | 'D' | 'A' | 'E' | 'B' | 'F#' | 'Db' | 'Ab' | 'Eb' | 'Bb' | 'F';
 
 // Individual Fretboard Coordinates And Audio Metadata
 export interface FretNode {
@@ -19,14 +25,8 @@ export interface FretNode {
 }
 
 // Fingering System (Berklee / Leavitt Position Types)
-export type FingeringType =
-	| 'type1'
-	| 'type2'
-	| 'type3'
-	| 'type4'
-	| 'type5'
-	| 'type6'
-	| 'type7';
+// export type FingeringType = BerkleeFingeringType | CAGEDFingeringTypes;
+export type FingeringType = BerkleeFingeringType;
 
 export interface RootDefinition {
 	string: number;

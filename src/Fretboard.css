@@ -247,3 +247,23 @@
     margin-Bottom: '20px';
     font-size: 1.5rem;
 }
+
+/* Things for Mobile Usage */
+.fretboard-mobile-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* iOS smooth native scroll momentum */
+    overscroll-behavior-x: contain; /* Stops user from accidentally swiping to previous page */
+}
+
+/* Apply interactive-element to any component we drag or swipe */
+.interactive-element {
+    /* Prevent long-press text selection/magnifying glass */
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Prevents Safari from hijacking drag gesture for scrolling/refreshing */
+    touch-action-none;
+}
+
+
