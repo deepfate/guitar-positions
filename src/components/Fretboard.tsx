@@ -87,22 +87,6 @@ interface FretboardProps {
 }
 
 
-// Apply the interface to the component's parameters
-export default function Fretboard ({
-    currentKey,
-    fingeringType,
-    lockMode,
-    position
-}: FretboardProps) {
-    return (
-    <div className="fretboard-container">
-        <h2>Fretboard (Key: {currentKey})</h2>
-
-        {/* Fretboard rendering logic goes here */}
-    
-    </div>
-    );
-}
 
 
 
@@ -138,12 +122,34 @@ type ActiveNote = {
 // The mathematical order of the circle (Clockwise)
 const circleKeys = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
 
+// Apply the interface to the component's parameters
+// export default function Fretboard ({
+//     currentKey,
+//     fingeringType,
+//     lockMode,
+//     position
+// }: FretboardProps) {
+//     return (
+//     <div className="fretboard-container">
+//         <h2>Fretboard (Key: {currentKey})</h2>
+//
+//         {/* Fretboard rendering logic goes here */}
+//
+//     </div>
+//     );
+// }
+//
 /**
  * The main interactive Fretboard UI.
  * Handles rendering of strings, frets, inlay markers, active scale shapes / position.
  * @returns 
  */
-export default function Fretboard() {
+export default function Fretboard({
+     currentKey,
+     fingeringType,
+     lockMode,
+     position
+ }: FretboardProps) {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
     const fretboardData = useMemo<FretNode[][]>(() => generateFretboard(), []);

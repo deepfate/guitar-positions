@@ -4,15 +4,15 @@ import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal impo
 /**
  * 
  */
-export type FretNode = {
-  stringIndex: number;
-  fret: number;
-  note: string;
-  pitchClass: string;
-  octave: number | undefined;
-  midi: number | null;
-}
-
+// export type FretNode = {
+//   stringIndex: number;
+//   fret: number;
+//   note: string;
+//   pitchClass: string;
+//   octave: number | undefined;
+//   midi: number | null;
+// }
+//
 /**
  * Generates a 2D array representing the guitar fretboard.
  * @param {string[]} tuning - Array of notes from lowest pitch to highest (e.g., Standard: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'])
