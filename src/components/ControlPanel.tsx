@@ -1,7 +1,7 @@
 
 import { DotDisplayOption, LockMode } from './Fretboard';
-import CircleOfFifths from './util/CircleOfFifths';
-
+//import CircleOfFifths from './util/CircleOfFifths';
+import CircleOfFifths from './CircleOfFifths';
 import { FingeringType } from './util/berkleeDictionary';
 import { FingeringKey } from './util/berkleeDictionary';
 
@@ -169,39 +169,6 @@ export default function ControlPanel({
                 />
             </div>
 
-
-
-
-
-
-
-            {/* Temp dropdown to test key change 
-            
-            <label>Temp for Key Change</label>
-            <select
-                value={currentKeyName}
-            >
-                <option>C</option>
-                <option>G</option>
-                <option>D</option>
-                <option>A</option>
-                <option>E</option>
-                <option>B</option>
-                <option>F# / Gb</option>
-                <option>Db / C#</option>
-                <option>Ab / G#</option>
-                <option>Eb / D#</option>
-                <option>Bb / A#</option>
-                <option>F</option>
-
-            </select>
-            
-            
-            */}
-
-
-
-
             {/* Position Slider */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', marginBottom: '15px' }}>
                 <label style={{ color: 'black', fontSize: '0.9rem', fontWeight: 'bold' }}>
@@ -225,7 +192,6 @@ export default function ControlPanel({
                     onChange={(e) => handlePositionChange(Number(e.target.value))}
                 />
             </div>
-
 
 
             {/* Fret Dots Display Options */}
@@ -258,22 +224,6 @@ export default function ControlPanel({
                 currentKeyName={currentKeyName}
                 onKeyChange={handleKeyChange}
             />
-
-            {/* Fretboard Display Options
-                <h4>Fretboard Display Options</h4>
-            */}
-            {/*
-
-            <label style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'black' }}>
-                <input
-                    type="checkbox"
-                    checked={fretInlayState}
-                    onChange={(e) => setFretInlayState(e.target.checked)}
-                />
-                Toggle Fret Inlay
-            </label>
-
-            */}
 
         </div>
     );

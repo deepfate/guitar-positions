@@ -2,37 +2,10 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MusicKey } from '../types/music';
 import { Note } from '@tonaljs/tonal';
 
-/*
-interface CircleOfFifthsProps {
-    currentKeyName: string;
-    onKeyChange: (newKey: string) => void;
-}
-*/
-
 interface CircleOfFifthsProps {
     currentKeyName: MusicKey;
     onKeyChange: (newKey: MusicKey) => void;
 }
-
-// Map of Circle of Fifths with both their display names and absolute Chromas (0-11)
-/*
-const circleKeys = [
-    { name: 'C', chroma: 0 }, { name: 'B#', chroma: 0 },
-    { name: 'G', chroma: 7 },
-    { name: 'D', chroma: 2 },
-    { name: 'A', chroma: 9 },
-    { name: 'E', chroma: 4 }, { name: 'Fb', chroma: 4 },
-    { name: 'B', chroma: 11 }, { name: 'Cb', chroma: 11 },
-    { name: 'F#', chroma: 6 }, { name: 'Gb', chroma: 6 },
-    { name: 'Db', chroma: 1 }, { name: 'C#', chroma: 1 },// Chroma 1 matches both C# and Db!
-    { name: 'Ab', chroma: 8 }, { name: 'G#', chroma: 8 },// Chroma 8 matches both G# and Ab!
-    { name: 'Eb', chroma: 3 }, { name: 'D#', chroma: 3 },
-    { name: 'Bb', chroma: 10 }, { name: 'A#', chroma: 10 },
-    { name: 'F', chroma: 5 }, { name: 'E#', chroma: 5 }
-];
-*/
-
-
 
 interface CircleKey {
     name: MusicKey;
@@ -53,8 +26,6 @@ const circleKeys: CircleKey[] = [
     { name: 'Bb', chroma: 10 },
     { name: 'F', chroma: 5 }
 ];
-
-
 
 export default function CircleOfFifths({ currentKeyName, onKeyChange }: CircleOfFifthsProps) {
     const wheelRef = useRef<HTMLDivElement>(null);

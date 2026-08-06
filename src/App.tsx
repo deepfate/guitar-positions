@@ -4,11 +4,12 @@ import { MusicKey, FingeringType, LockMode} from './types/music';
 import './App.css'; // Clear out the defulat Vite CSS stuff in this.
 
 // Component Imports
-import Fretboard from './Fretboard';
-import CircleOfFifths from './util/CircleOfFifths';
-import DraggableBox from './util/DraggableBox';
-
-
+//import Fretboard from './Fretboard';
+//import CircleOfFifths from './util/CircleOfFifths';
+//import DraggableBox from './util/DraggableBox';
+import Fretboard from './components/Fretboard';
+import CircleOfFifths from './components/CircleOfFifths';
+import DraggableBox from './components/DraggableBox';
 
 function App() {
   // <MusicKey> forces this state to ONLY accept valid keys.
