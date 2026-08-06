@@ -27,7 +27,7 @@ export default function DraggableBox({ title, defaultX, defaultY, children }: Dr
         };
     };
 
-    const handlePointerMove = (e: React.PointerEvent) => {
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (!isDragging) return;
         
         setPosition({
@@ -36,7 +36,7 @@ export default function DraggableBox({ title, defaultX, defaultY, children }: Dr
         });
     };
 
-    const handlePointerUp = (e: React.PointerEvent) => {
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
         setIsDragging(false);
         e.currentTarget.releasePointerCapture(e.pointerId);
     };

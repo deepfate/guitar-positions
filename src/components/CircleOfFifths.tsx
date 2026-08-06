@@ -55,7 +55,7 @@ export default function CircleOfFifths({ currentKeyName, onKeyChange }: CircleOf
         return index;
     };
 
-    const handlePointerDown = (e: React.PointerEvent) => {
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
         e.currentTarget.setPointerCapture(e.pointerId);
         setIsDragging(true);
 
@@ -64,7 +64,7 @@ export default function CircleOfFifths({ currentKeyName, onKeyChange }: CircleOf
         onKeyChange(circleKeys[index].name);
     };
 
-    const handlePointerMove = (e: React.PointerEvent) => {
+    const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
         if (!isDragging) return;
 
         const index = getTargetIndexFromPointer(e.clientX, e.clientY);
@@ -76,7 +76,7 @@ export default function CircleOfFifths({ currentKeyName, onKeyChange }: CircleOf
         }
     };
 
-    const handlePointerUp = (e: React.PointerEvent) => {
+    const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
         setIsDragging(false);
         e.currentTarget.releasePointerCapture(e.pointerId);
     };
