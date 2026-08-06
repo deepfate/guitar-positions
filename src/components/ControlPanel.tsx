@@ -1,5 +1,5 @@
 
-import { DotDisplayOption } from './Fretboard';
+import { DotDisplayOption } from '../types/music';
 //import CircleOfFifths from './util/CircleOfFifths';
 import CircleOfFifths from './CircleOfFifths';
 //import { FingeringType } from './util/berkleeDictionary';

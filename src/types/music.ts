@@ -12,6 +12,13 @@ export interface NoteItem {
 
 export type MusicKey = 'C' | 'G' | 'D' | 'A' | 'E' | 'B' | 'F#' | 'Db' | 'Ab' | 'Eb' | 'Bb' | 'F';
 
+/**
+ * @remarks 'imrp' as in, Index, Middle, Ring, Pinky
+ */
+export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none';
+
+//export type LockMode = 'none' | 'key' | 'position';
+
 // Individual Fretboard Coordinates And Audio Metadata
 export interface FretNode {
 	stringIndex: number;

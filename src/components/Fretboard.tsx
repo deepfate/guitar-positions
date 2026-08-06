@@ -76,7 +76,7 @@ import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
 // Defining props interface
-import { MusicKey, FingeringType, LockMode } from '../types/music';
+import { DotDisplayOption, MusicKey, FingeringType, LockMode } from '../types/music';
 
 
 // Define the exact shape of the props comings from Apps.tsx
@@ -105,13 +105,6 @@ const singleInlays = [1, 3, 5, 9, 13, 17]; // as const
  */
 const doubleInlays = [7, 12, 15]; // as const
 
-/**
- * @remarks Exporting because we use this in ControlPanel.tsx, but would eventually like to pull this out. idk.
- * 
- * 'imrp' as in, Index, Middle, Ring, Pinky
- */
-export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none';
-//export type LockMode = 'none' | 'key' | 'position';
 
 /** */
 type ActiveNote = {
