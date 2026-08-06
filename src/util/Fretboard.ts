@@ -1,18 +1,7 @@
 
 import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal import
+import { FretNode } from "../types/music";
 
-/**
- * 
- */
-// export type FretNode = {
-//   stringIndex: number;
-//   fret: number;
-//   note: string;
-//   pitchClass: string;
-//   octave: number | undefined;
-//   midi: number | null;
-// }
-//
 /**
  * Generates a 2D array representing the guitar fretboard.
  * @param {string[]} tuning - Array of notes from lowest pitch to highest (e.g., Standard: ['E2', 'A2', 'D3', 'G3', 'B3', 'E4'])
@@ -22,7 +11,7 @@ import { Note, Interval } from "@tonaljs/tonal"; // Assuming standard Tonal impo
  */
 export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"], fretCount = 24) {
   return tuning.map((openNote, stringIndex) => {
-    const stringData = [];
+    const stringData: FretNode[] = []; // Explicitally typing the array
 
     for (let fret = 0; fret <= fretCount; fret++) {
       // Calculate the interval based on the fret number (1 fret = 1 semitone)
@@ -39,8 +28,9 @@ export function generateFretboard(tuning = ["E2", "A2", "D3", "G3", "B3", "E4"],
         fret: fret,
         note: noteData.name,      // e.g., "F#2"
         pitchClass: noteData.pc,  // e.g., "F#"
+        chroma: noteData.chroma,
         octave: noteData.oct,     // e.g., 2
-        midi: noteData.midi       // Absolute pitch number (crucial for later)
+        midiNumber: noteData.midi       // Absolute pitch number (crucial for later)
       });
     }
 

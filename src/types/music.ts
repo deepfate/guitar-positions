@@ -14,14 +14,24 @@ export type MusicKey = 'C' | 'G' | 'D' | 'A' | 'E' | 'B' | 'F#' | 'Db' | 'Ab' | 
 
 // Individual Fretboard Coordinates And Audio Metadata
 export interface FretNode {
-	string: number;
+	stringIndex: number;
 	fret: number;
+	note: string;
 	pitchClass: string;
-
+	
 	// Future Proofing for MIDI and Audio Engine
 	chroma?: number;
 	octave?: number;
-	midiNumber?: number;
+	midiNumber?: number | null; // Allow null to match Tonal's output.
+
+	// string: number;
+	// fret: number;
+	// pitchClass: string;
+	//
+	// // Future Proofing for MIDI and Audio Engine
+	// chroma?: number;
+	// octave?: number;
+	// midiNumber?: number;
 }
 
 // Fingering System (Berklee / Leavitt Position Types)
