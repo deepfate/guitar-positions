@@ -76,7 +76,8 @@ import './Fretboard.css';
 import ControlPanel from './ControlPanel';
 
 // Defining props interface
-import { MusicKey, FingeringType, LockMode } from './types/music';
+import { MusicKey, FingeringType, LockMode } from '../types/music';
+
 
 // Define the exact shape of the props comings from Apps.tsx
 interface FretboardProps {
@@ -110,7 +111,7 @@ const doubleInlays = [7, 12, 15]; // as const
  * 'imrp' as in, Index, Middle, Ring, Pinky
  */
 export type DotDisplayOption = 'fingers' | 'imrp' | 'notes' | 'numerals' | 'none';
-export type LockMode = 'none' | 'key' | 'position';
+//export type LockMode = 'none' | 'key' | 'position';
 
 /** */
 type ActiveNote = {

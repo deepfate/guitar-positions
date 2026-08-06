@@ -1,15 +1,18 @@
 
-import { DotDisplayOption, LockMode } from './Fretboard';
+import { DotDisplayOption } from './Fretboard';
 //import CircleOfFifths from './util/CircleOfFifths';
 import CircleOfFifths from './CircleOfFifths';
-import { FingeringType } from './util/berkleeDictionary';
-import { FingeringKey } from './util/berkleeDictionary';
+//import { FingeringType } from './util/berkleeDictionary';
+//import { FingeringKey } from './util/berkleeDictionary';
 
-const fingeringKeyOrder: FingeringKey[] = [
+import { FingeringType, LockMode } from '../types/music';
+
+const fingeringKeyOrder: FingeringType[] = [ // fingeringKeyOrder acts as a bridge between Fingering Type slider and the strings.
     'type1', 'type1A', 'type1B', 'type1C', 'type1D',
     'type2', 'type3',
     'type4', 'type4A', 'type4B', 'type4C', 'type4D'
 ];
+
 
 
 /** Props for the Control Panel */
