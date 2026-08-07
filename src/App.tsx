@@ -28,9 +28,13 @@ function App() {
       <DraggableBox title="Fretboard View" defaultX={20} defaultY={20}>
         <Fretboard 
           currentKey={currentKey}
+          setCurrentKey={setCurrentKey}
           fingeringType={fingeringType}
+          setFingeringType={setFingeringType}
           lockMode={lockMode}
+          setLockMode={setLockMode}
           position={position}
+          setPosition={setPosition}
         />
       </DraggableBox>
       

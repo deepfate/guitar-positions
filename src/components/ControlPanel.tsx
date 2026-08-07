@@ -1,5 +1,5 @@
 
-import { DotDisplayOption } from '../types/music';
+import { DotDisplayOption, MusicKey} from '../types/music';
 //import CircleOfFifths from './util/CircleOfFifths';
 import CircleOfFifths from './CircleOfFifths';
 //import { FingeringType } from './util/berkleeDictionary';
@@ -21,12 +21,7 @@ interface ControlPanelProps {
     isSidebarOpen: boolean;
 
     /** */
-    //isKeyLocked: boolean;
-    /** */
-    //setIsKeyLocked: (locked: boolean) => void; // A function that takes in a boolean and returns nothing.
-
-    /** */
-    currentKeyName: string;
+    currentKeyName: MusicKey;
 
     /** Allow user to choose what is shown inside fret dots. */
     dotDisplay: DotDisplayOption;
@@ -55,7 +50,7 @@ interface ControlPanelProps {
     handleTypeChange: (type: FingeringType) => void;
 
     // newKey: string; <-- I think this can be replaced with currentKeyName instead. 
-    handleKeyChange: (key: string) => void;
+    handleKeyChange: (key: MusicKey) => void;
 
     /** */
     position: number;

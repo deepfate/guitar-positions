@@ -68,28 +68,27 @@
 
 
 import React, { useMemo, useState, useRef } from 'react';
-//import { generateFretboard, FretNode } from './util/Fretboard'; // Adjust path as needed
-import { generateFretboard, FretNode } from '../util/Fretboard';
-//import { berkleeDictionary, rootDefinitions, FingeringType } from './util/berkleeDictionary';
+import { generateFretboard } from '../util/Fretboard';
 import { Scale, Note } from '@tonaljs/tonal';
 import './Fretboard.css';
 import ControlPanel from './ControlPanel';
+import { berkleeDictionary, rootDefinitions } from '../util/berkleeDictionary';
 
 // Defining props interface
-import { DotDisplayOption, MusicKey, FingeringType, LockMode } from '../types/music';
-
+import { DotDisplayOption, FretNode, MusicKey, FingeringType, LockMode} from '../types/music';
+import { CHROMA_TO_KEY } from '../types/music';
 
 // Define the exact shape of the props comings from Apps.tsx
 interface FretboardProps {
     currentKey: MusicKey;
+    setCurrentKey: (key: MusicKey) => void;
     fingeringType: FingeringType;
+    setFingeringType: (type: FingeringType) => void;
     lockMode: LockMode;
+    setLockMode: (mode: LockMode) => void;
     position: number;
+    setPosition: (pos: number) => void;
 }
-
-
-
-
 
 /** Defines which frets should have a single fret dot.
  *  The "as const" can be uncommented should you want to make these immutable.
@@ -116,44 +115,30 @@ type ActiveNote = {
 // The mathematical order of the circle (Clockwise)
 const circleKeys = ['C', 'G', 'D', 'A', 'E', 'B', 'F#', 'Db', 'Ab', 'Eb', 'Bb', 'F'];
 
-// Apply the interface to the component's parameters
-// export default function Fretboard ({
-//     currentKey,
-//     fingeringType,
-//     lockMode,
-//     position
-// }: FretboardProps) {
-//     return (
-//     <div className="fretboard-container">
-//         <h2>Fretboard (Key: {currentKey})</h2>
-//
-//         {/* Fretboard rendering logic goes here */}
-//
-//     </div>
-//     );
-// }
-//
 /**
  * The main interactive Fretboard UI.
  * Handles rendering of strings, frets, inlay markers, active scale shapes / position.
  * @returns 
  */
 export default function Fretboard({
-     currentKey,
-     fingeringType,
-     lockMode,
-     position
+    currentKey,
+    setCurrentKey,
+    fingeringType,
+    setFingeringType,
+    lockMode,
+    setLockMode,
+    position,
+    setPosition
  }: FretboardProps) {
     // Generate the fretboard data once. 
     // If we add alternate tunings later, we will add the tuning state to the dependency array [].
     const fretboardData = useMemo<FretNode[][]>(() => generateFretboard(), []);
 
     // --- STATES: Defaults --- //
-    const [position, setPosition] = useState(2); // Default to 2nd Position
-    const [fingeringType, setFingeringType] = useState<FingeringType>('type1');
+    //const [position, setPosition] = useState(2); // Default to 2nd Position
+    //const [fingeringType, setFingeringType] = useState<FingeringType>('type1');
 
-
-    const [lockMode, setLockMode] = useState<LockMode>('none');
+    //const [lockMode, setLockMode] = useState<LockMode>('none');
     // TO BE DELETED, REPLACED BY THE ABOVE.
     // const [isKeyLocked, setIsKeyLocked] = useState(false);
 
@@ -212,10 +197,18 @@ export default function Fretboard({
         const rootDef = rootDefinitions[fingeringType];
         const rootStringData = fretboardData[rootDef.string];
 
-        if (!rootStringData) return "";
+        if (!rootStringData) return "C";
 
         const rootNoteData = rootStringData.find(f => f.fret === position + rootDef.offset);
-        return rootNoteData ? rootNoteData.pitchClass : "";
+        
+        if(!rootNoteData || rootNoteData.chroma === undefined) return 'C';
+
+        // 100% safe at runtime. If Tonal gives us D# (chroma 3), this safely returns Eb (MusicKey)
+        return CHROMA_TO_KEY[rootNoteData.chroma];
+
+        //return rootNoteData ? rootNoteData.pitchClass : "";
+
+    
     }, [fretboardData, position, fingeringType]);
 
     /**
@@ -307,7 +300,6 @@ export default function Fretboard({
         setFingeringType(newType);
     }
 
-    //const handleKeyChange = (newTargetKey: string) => {
     const handleKeyChange = (newTargetKey: MusicKey) => {
         // Get numeric pitch value of the incoming key
         const targetChroma = Note.get(newTargetKey).chroma
@@ -325,6 +317,8 @@ export default function Fretboard({
                     if (fretChroma === targetChroma) {
                         setFingeringType(typeKey as FingeringType);
                         // Could also add a state here to show a warning if NO shape fits the key at this position.
+
+                        setCurrentKey(newTargetKey);
                         return;
                     }
                 }
@@ -355,6 +349,7 @@ export default function Fretboard({
             if (calculatedPosition > 24) calculatedPosition -= 12;
 
             setPosition(calculatedPosition);
+            setCurrentKey(newTargetKey);
         }
     }
 
