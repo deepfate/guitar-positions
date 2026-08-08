@@ -102,7 +102,21 @@ export default function ControlPanel({
     setShowPositionBox
 }: ControlPanelProps) {
     return (
-        <div className={`side-panel ${!isSidebarOpen ? 'closed' : ''}`}>
+        <div
+            style={{ 
+                width: '300px', /* Fixed width */
+                minWidth: '300px', /* Prevent squishing */
+                height: '100%',
+                backgroundColor: '#d9b99b',
+                boxShadow: '4px 0 15px rgba(0,0,0,0.2)', /* Shadow on the right side */
+                padding: '20px',
+                overflowY: 'auto', /* Add scrollbar if panel gets too tall */
+                zIndex: 50, /* Keep it above the fretboard */
+                transition: 'transform 0.3s ease',
+                transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+                position: 'relative' /* Changed from absolute! */
+            }}
+        >
             <h2>Controls</h2>
 
             {/* Global Options */}

@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+.App {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* Fill the entire vertical screen */
+  width: 100vw;
+  overflow: hidden; /* Prevent main page from scrolling */
+  background-color: #f4ebd8;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

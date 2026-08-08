@@ -408,7 +408,16 @@ export default function Fretboard({
 
     // --- RENDER THE FRETBOARD --- //
     return (
-        <div className="fretboard-wrapper">
+        //<div className="fretboard-wrapper">
+        <div style={{
+            flex: 1, /* Take up all remaining space next to the sidebar */
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center', /* Vertically center the fretboard */
+            justifyContent: 'flex-start', /* Align left so it scrolls properly */
+            overflowX: 'auto', /* Add horizontal scrollbar if needed */
+            padding: '40px', /* Give it some breathing room */
+        }}>  
             {/* --- UI CONTROLS --- */}
             <div className="dashboard-layout">
                 <button
