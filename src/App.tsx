@@ -24,19 +24,16 @@ function App() {
 
   return (
     <>
-      <h1>Fretboard App</h1>
-      <DraggableBox title="Fretboard View" defaultX={20} defaultY={20}>
-        <Fretboard 
-          currentKey={currentKey}
-          setCurrentKey={setCurrentKey}
-          fingeringType={fingeringType}
-          setFingeringType={setFingeringType}
-          lockMode={lockMode}
-          setLockMode={setLockMode}
-          position={position}
-          setPosition={setPosition}
-        />
-      </DraggableBox>
+      <Fretboard 
+        currentKey={currentKey}
+        setCurrentKey={setCurrentKey}
+        fingeringType={fingeringType}
+        setFingeringType={setFingeringType}
+        lockMode={lockMode}
+        setLockMode={setLockMode}
+        position={position}
+        setPosition={setPosition}
+      />
       
       <DraggableBox title="Circle of Fifths View" defaultX={400} defaultY={20}>
         <CircleOfFifths
