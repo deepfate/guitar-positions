@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# NOTE: This script is strictly reserved for the Vultr server.
+# This script does two things.
+# 1. Crushes code into static files...
+# 2. Physically moves those files into Nginx's system folders (var/www/...)
+# ---
+# Running this script on anything but the Vultr server will crash.
+#
+# NOTE: If you want to develop live and see changes instantly, just pull onto local machine and just use built-in NPM commands:
+#       npm run dev
+#
+#
+#
+
 # The line below tells Linux to instantly abort the script if any command below fails.
 # Prevents copying a broken build to the live site.
 set -e
