@@ -263,7 +263,7 @@
     user-select: none;
 
     /* Prevents Safari from hijacking drag gesture for scrolling/refreshing */
-    touch-action-none;
+    touch-action: none;
 }
 
 
